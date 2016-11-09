@@ -38,6 +38,7 @@ setup(
 	url='https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdklop.html',
 	license=license,
 	packages=find_packages(exclude=("tests",)),
+	data_files = [("", ["LICENSE"])],
 	include_package_data=True, 
 	test_suite='nose.collector',
 	tests_require=['nose'],
@@ -51,5 +52,6 @@ setup(
 		'Programming Language :: C',
 		'Programming Language :: C++',
 		'Topic :: Software Development :: Build Tools',
+		'License :: OSI Approved :: Apache Software License',
           ],
 )
