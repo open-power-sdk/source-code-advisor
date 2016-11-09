@@ -1,4 +1,5 @@
 import unittest
+import platform
 
 def fun(x):
     return x + 1
@@ -11,8 +12,12 @@ class TestB(unittest.TestCase):
     def test2(self):
         assert(fun(3) == 4)
 
+class TestC(unittest.TestCase):
+    def test3(self):
+        self.assertEqual('Linux', platform.system())
+
 if __name__ == '__main__':
-    tests = [TestA, TestB]
+    tests = [TestA, TestB, TestC]
     loader = unittest.TestLoader()
     test_suit = []
 
