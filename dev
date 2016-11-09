@@ -1,4 +1,5 @@
 #!/bin/bash
+set +e
 : '
 
 Copyright (C) 2016 IBM Corporation
