@@ -1,23 +1,42 @@
+# -*- coding: utf-8 -*-
+"""
+Copyright (C) 2016 IBM Corporation
+
+Licensed under the Apache License, Version 2.0 (the “License”);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an “AS IS” BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+    Contributors:
+        * Rafael Sene <rpsene@br.ibm.com>
+"""
+
 import unittest
 import platform
+from src import core
 
-def fun(x):
-    return x + 1
+class TestCmdExecution(unittest.TestCase):
+    def test_cmdexec(self):
+        self.assertEqual(0, core.execute("ls"))
 
-class TestA(unittest.TestCase):
-    def test1(self):
-        self.assertEqual(fun(3), 4)
+class TestCmdExist(unittest.TestCase):
+    @staticmethod
+    def test_cmdexist():
+        assert True == core.cmdexists("cd")
 
-class TestB(unittest.TestCase):
-    def test2(self):
-        assert(fun(3) == 4)
-
-class TestC(unittest.TestCase):
-    def test3(self):
+class TestPlatform(unittest.TestCase):
+    def test_platform(self):
         self.assertEqual('Linux', platform.system())
 
 if __name__ == '__main__':
-    tests = [TestA, TestB, TestC]
+    tests = [TestCmdExecution, TestCmdExist, TestPlatform]
     loader = unittest.TestLoader()
     test_suit = []
 
@@ -25,6 +44,6 @@ if __name__ == '__main__':
         suite = loader.loadTestsFromTestCase(test)
         test_suit.append(suite)
 
-    big_suite = unittest.TestSuite(suites_list)
+    big_suite = unittest.TestSuite(test_suit)
     runner = unittest.TextTestRunner()
-    results = runner.run(big_suite)		
+    results = runner.run(big_suite)

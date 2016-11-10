@@ -26,7 +26,7 @@ with open('README.rst') as f:
 	readme = f.read()
 
 with open('LICENSE') as f:
-	license = f.read()
+	toollicense = f.read()
 
 setup(
 	name='sca',
@@ -36,10 +36,10 @@ setup(
 	author='Rafael Peria de Sene',
 	author_email='rpsene@br.ibm.com',
 	url='https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdklop.html',
-	license=license,
+	license=toollicense,
 	packages=find_packages(exclude=("tests",)),
-	data_files = [("", ["LICENSE"])],
-	include_package_data=True, 
+	data_files=[("", ["LICENSE"])],
+	include_package_data=True,
 	test_suite='nose.collector',
 	tests_require=['nose'],
 	scripts=['bin/sca'],

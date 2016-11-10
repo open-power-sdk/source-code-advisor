@@ -52,7 +52,7 @@ buildTests(){
 buildRun(){
 	createVirtEnv
 	python ./setup.py install
-	sca
+	sca -h
 	destroyVirtEnv
 	clean
 	return $TRUE

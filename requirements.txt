@@ -1,2 +1,5 @@
 nose
-sphinx
+argparse
+sys
+os
+time
