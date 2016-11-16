@@ -82,7 +82,7 @@ def main(argv=None):
 		parser.add_argument("-w", "--warning", dest="warn", type=int, choices=range(1, 5), required=False, default=2, help="set warning level [default: %(default)s]")
 		parser.add_argument("-p", "--processor", dest="processor", type=str, choices=['power7', 'power8'], required=False, default='power8', help="set processor model [default: %(default)s]")
 		parser.add_argument('-V', '--version', action='version', version=program_version_message)
-		parser.add_argument(dest="application", help="path to the application binary [default: %(default)s]", metavar="application", nargs='+')
+		parser.add_argument(dest="path", help="path to the application binary [default: %(default)s]", metavar="path", nargs='+')
 
 		# Process arguments
 		args, application_args = parser.parse_known_args()
