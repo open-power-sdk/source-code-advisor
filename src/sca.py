@@ -72,6 +72,7 @@ def main(argv=None):
 		Contributors:
 			* Rafael Sene <rpsene@br.ibm.com>
 			* Diego Merjildo <merjildo@br.ibm.com>
+			* Roberto Oliveira <rdutra@br.ibm.com>
 -----------------------------------------------------------------------------
 ''' % (program_shortdesc)
 
@@ -87,13 +88,15 @@ def main(argv=None):
 		# Process arguments
 		args, application_args = parser.parse_known_args()
 		verbose_value = args.verbose
-		optimization_value = str(args.opt)
+		optimization_value = args.opt
 		warning_value = args.warn
 		processor_value = args.processor
 		binary_path = args.path[0]
 		binary_name = binary_path.split("/")[-1]
 		args.path.pop(0)
 		binary_cmd = binary_path + ' ' + ' '.join(map(str, application_args))
+
+		# Run SCA
 		controller.runsca(binary_cmd, binary_name, optimization_value, warning_value, verbose_value, processor_value)
 
 	except KeyboardInterrupt:

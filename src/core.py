@@ -17,21 +17,19 @@ limitations under the License.
 
 	Contributors:
 		* Rafael Sene <rpsene@br.ibm.com>
+		* Roberto Oliveira <rdutra@br.ibm.com>
 """
 
 import subprocess
-import sys
 
 """execute a command with its parameters"""
 def execute(command):
 	try:
 		return subprocess.check_call([command], stderr=subprocess.STDOUT, shell=True)
 	except subprocess.CalledProcessError as e:
-		sys.stderr.write('Error running command: ' + command)
 		return e.returncode
 
 """check if a command exists"""
 def cmdexists(command):
-	subp = subprocess.call("type " + command, shell=True,
-   	stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	subp = subprocess.call("type " + command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	return subp == 0
