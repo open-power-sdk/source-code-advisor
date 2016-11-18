@@ -28,7 +28,7 @@ import core
 FDPRPRO = '/opt/ibm/fdprpro/bin/fdprpro'
 FDPR_WRAP = '/opt/ibm/fdprpro/bin/fdpr_instr_prof_jour'
 
-def run_sca(binary_cmd, binary_name, options):
+def run_sca(binary_path, binary_name, binary_args, options):
     '''Run the SCA tool'''
     opt_value = options.get_opt()
     warn_value = options.get_warn()
@@ -43,7 +43,7 @@ def run_sca(binary_cmd, binary_name, options):
         sys.exit(0)
     else:
         # Available optimization levels in FDPR: O, O2, O3, O4
-        if opt_value == '1':
+        if opt_value == 1:
             opt_value = ''
 
         # Create flags to be passed to fdpr
@@ -60,7 +60,10 @@ def run_sca(binary_cmd, binary_name, options):
         cmd += processor_flag
         os.environ['FDPR_OPT_FLAGS'] = cmd
 
-        status = core.execute(FDPR_WRAP + " " + binary_cmd)
+        # Get binary absolute path
+        binary_path = os.path.realpath(binary_path)
+
+        status = core.execute(FDPR_WRAP + " " + binary_path + " " + binary_args)
         check_exit_status(status)
 
         jour_file = binary_name + "-jour.xml"

@@ -124,18 +124,18 @@ def main(argv=None):
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
         parser.add_argument(dest="path",
                             help="path to the application binary [default: %(default)s]",
-                            metavar="path", nargs='+')
+                            nargs='+')
 
         # Process arguments
         args, application_args = parser.parse_known_args()
-        options_values = FdprOptions(str(args.opt), args.warn, args.verbose, args.processor)
-        binary_path = args.path[0]
+        options_values = FdprOptions(args.opt, args.warn, args.verbose, args.processor)
+        binary_path = args.path.pop(0)
         binary_name = binary_path.split("/")[-1]
-        args.path.pop(0)
-        binary_cmd = binary_path + ' ' + ' '.join(map(str, application_args))
+        binary_args = ' ' + ' '.join(map(str, args.path))
+        binary_args = binary_args + ' ' + ' '.join(map(str, application_args))
 
         #Run SCA
-        controller.run_sca(binary_cmd, binary_name, options_values)
+        controller.run_sca(binary_path, binary_name, binary_args, options_values)
 
     except KeyboardInterrupt:
         return 0
