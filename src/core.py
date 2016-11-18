@@ -24,8 +24,8 @@ limitations under the License.
 import subprocess
 import os
 import linecache
-from src.sca_events import ScaXml
-from src.journal_operations import JournalXml
+from sca_events import ScaXml
+from journal_operations import JournalXml
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 COLOR_HEADER = '\033[95m'

@@ -23,7 +23,7 @@ limitations under the License.
 
 import sys
 import os
-import src.core as core
+import core
 
 FDPRPRO = '/opt/ibm/fdprpro/bin/fdprpro'
 FDPR_WRAP = '/opt/ibm/fdprpro/bin/fdpr_instr_prof_jour'

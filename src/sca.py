@@ -26,7 +26,7 @@ import time
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
-import src.controller as controller
+import controller
 
 __all__ = []
 #TODO: these values must be static
