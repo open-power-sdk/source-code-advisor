@@ -1,2 +1,3 @@
 include LICENSE
+include src/sca_events/sca_events.xml
 recursive-include data *

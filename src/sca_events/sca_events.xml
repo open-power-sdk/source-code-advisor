@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	This XML is used to update messages that come from FDPR journal file. The events that will
+	be displayed in SCA view MUST be in this file.
+
+	Tags:
+	- name: 	 The event name reported by FDPR. (use just upper letters)
+	- problem:	 The problem message that will be displayed in SCA view.
+	- solution:	 The solution message that will be displayed in SCA view.
+	- marker_id: Field used from markers and quick fixes. Just fill this field when there is a quick fix implemented for the type.
+-->
+
+<!--
+	XML symbols (help):
+		Break line: &#xA;
+		Double quote: &quot;
+		Tabulation: &#x9;
+ -->
+
+<events>
+  	
+	<event name="INLINE FUNCTION"
+		problem="High overhead for frequent calls to a small function."
+		solution="&#xA;&#x9;Enable compiler optimization, if not already enabled. If optimization is enabled, 
+			&#xA;&#x9;tell the compiler to ignore some restrictions and inline the function: add the GNU 
+			&#xA;&#x9;extension &quot;__attribute__((always_inline))&quot; to the declaration of the function to be inlined.
+			&#xA;&#x9;Example:
+			&#xA;&#x9;&#x9;void __attribute__((always_inline)) foo(void);
+			&#xA;&#xA;&#x9;Note: Validate the results, as inlining can cause performance regressions in some scenarios."
+		marker_id="com.ibm.fdpr.journal.inline_function" />
+	
+	<!-- 
+	<event name="INLINE FUNCTION"
+		problem="High overhead for frequent calls to a small function."
+		solution="Enable compiler optimization, if not already enabled. If optimization is enabled, tell the compiler to ignore some restrictions and inline the function: add the GNU extension &quot;__attribute__((always_inline))&quot; to the declaration of the function to be inlined.
+		\tExample:
+		\t\tvoid __attribute__((always_inline)) foo(void);
+		\tNote: Validate the results, as inlining can cause performance regressions in some scenarios."
+		marker_id="com.ibm.fdpr.journal.inline_function" />
+	      -->
+
+	<event name="UNROLL LOOP"
+		problem="High branch penalty in a small loop."
+		solution="Specify the GNU extension &quot;__attribute__ ((optimize (&quot;unroll-loops&quot;)))&quot; on the function containing the loop.
+			&#xA;Example:
+			&#xA;&#x9;void __attribute__((optimize(&quot;unroll-loops&quot;))) foo(void);
+			&#xA;&#xA;Note: Unrolling loops can sometimes negatively impact performance, so validation of its impact is recommended."
+		marker_id="com.ibm.fdpr.journal.unroll_loop" />
+
+	<event name="DIRECT TOC ACCESS"
+		problem="Data cache pressure is caused by TOC-load instructions."
+		solution="1) Use &quot;-mcmodel=medium&quot; flag when compiling the program. (For GCC, this is the default for recent versions)
+			&#xA;2) Limit the scope of visibility for the symbol.
+			&#xA;Symbols declared implicitly or explicitly as &quot;extern&quot; can have different scope of visibility:
+			&#xA; - within the compilation unit.
+			&#xA; - within the linked object.
+			&#xA; - globally (this is the default).
+			&#xA;&#xA;There are performance advantages to limiting the scope of visibility. This can be effected by:
+			&#xA;- if the symbol is only used within the compilation unit, declare it as &quot;static&quot;.
+			&#xA;Example:
+			&#xA;&#x9;static void foo(void);
+			&#xA;&#x9;static int voo;
+			&#xA;&#xA;- if the symbol is only needed within the linked object, use the GNU extention &quot;__attribute((visibility(&quot;hidden&quot;)))&quot;.
+			&#xA;Example:
+			&#xA;&#x9;void foo(void) __attribute__((visibility(&quot;hidden&quot;)));
+			&#xA;&#x9;int voo __attribute__((nocommon,visibility(&quot;hidden&quot;)));
+			&#xA;&#xA;- if there is need for the symbol to be referenced externally to the linked object, there is a technique which can be more performant at the expense of not being able to override the use of the symbol within that object. Declare the symbol as hidden and use the symbol within the object normally. Declare an alias of the symbol which is externally visible.
+			&#xA;Example:
+			&#xA;&#x9;int __voo __attribute__((nocommon,visibility(&quot;hidden&quot;)));
+			&#xA;&#x9;int voo __attribute__((alias(&quot;__foo&quot;)));
+			&#xA;&#xA;&#x9;void __foo(void) __attribute__((visibility(&quot;hidden&quot;)));
+			&#xA;&#x9;extern void foo(void) __attribute__((alias(&quot;__foo&quot;)));"
+		marker_id="" />	
+
+	<event name="REDUCE FOR EARLY EXIT"
+		problem="High overhead for function which very frequently returns quickly (e.g. saving registers that are not changed before returning)."
+		solution="If reasonable, move code up to and including the test and return statement in the called function instead into the calling function."
+		marker_id="" />
+
+	<event name="MOVE HOT CODE TO COLD AREA"
+		problem="Invariant or infrequently executed code found within a loop."
+		solution="Move the flagged code outside the loop."
+		marker_id="com.ibm.fdpr.journal.move_hot_cold" />
+
+	<event name="FIX LOAD-HIT-STORE"
+		problem="A data store operation followed closely by a load from the same address causes the load to take extra time to complete. "
+		solution="1) Remove unnecessary &quot;volatile&quot; from variables.
+			&#xA;2) Use local variables instead of pointer references.
+			&#xA;Pseudo-example:
+			&#xA; loop {
+ 			&#xA;&#x9;*p = foo(*p);
+			&#xA; }
+			&#xA;&#xA; - Change to:
+			&#xA; p = *p
+			&#xA; loop {
+        	&#xA;&#x9;p = foo(p);
+			&#xA; }
+			&#xA; *p = p;"
+		marker_id="" />
+
+	<event name="DE-VIRTUALIZE FUNCTION CALL"
+		problem="Indirect function calls (virtual functions or by function pointers) will have higher overhead than direct function calls."
+		solution="1) Consider making implicated virtual functions non-virtual, if possible. Or, similarly make calls through function pointers into direct calls, if possible.
+			&#xA;2) Use both &quot;-flto&quot; and &quot;-O3&quot; flag when compiling the program.
+			&#xA;&#xA;Note: Link-time optimization (-flto) can sometimes negatively impact performance, so validation of its impact is recommended."
+		marker_id="" />
+
+	<event name="SHORTCUT PLT CALL"
+		problem="Call-through-PLT to local procedure has high call overhead.
+			&#xA;A call to a function which is contained in the same object is routed indirectly through the Procedure Linkage Table (PLT). This is normal, to allow for symbols being overridden within the process. However, it is more expensive than a direct call."
+		solution="1) Use &quot;-Bsymbolic&quot; flag during linking. (Use &quot;-Wl,-Bsymbolic&quot; if using the compiler command, like &quot;gcc&quot; to link.)
+			&#xA;2) Use &quot;__attribute__ ((visibility(&quot;hidden&quot;)))&quot; on both function declaration and in the extern function prototype in header. This allows internal callers to avoid the PLT stub, while still allowing external access to the API."
+		marker_id="" />
+
+	<event name="EXTSW INSTRUCTION"
+		problem="A frequently encountered conversion of a signed 32-bit integer type (int) to a signed 64-bit integer type (long), possibly implicitly, requires an extra &quot;sign extension&quot; instruction which can also delay subsequent dependent instructions."
+		solution="Consider changing the type of source operand to &quot;long&quot;."
+		marker_id="" />
+
+	<event name="FMRTOXXLOR"
+		problem="High latency of the FMR/FPR instruction."
+		solution="Use the latest version of the Advance Toolchain or IBM XL compilers, use full optimization (-O3), and tune for the target processor, if possible (e.g. -mcpu=power8)."
+		marker_id="" />
+
+	<event name="XSCPSGNDPXXLOR"
+		problem="High latency of the Xscpsgndp instruction."
+		solution="Use the latest version of the Advance Toolchain or IBM XL compilers, use full optimization (-O3), and tune for the target processor, if possible (e.g. -mcpu=power8)."
+		marker_id="" />
+
+	<event name="TARGET TO SOURCE DEPENDENT INSTRUCTIONS"
+		problem="Sequence of dependent instructions is not optimal."
+		solution="1) Use the latest version of the Advance Toolchain or IBM XL compilers, use full optimization (-O3), and tune for the target processor, if possible (e.g. -mcpu=power8).
+		&#xA;2) Consider using the integrated sim_ppc tool for pipeline analysis."
+		marker_id="" />
+
+	<event name="INT TO FLOAT CONVERSION"
+		problem="High penalty for &quot;int&quot; to &quot;float&quot; conversion."
+		solution="If the conversion is necessary (can't be removed or mitigated by code changes), make sure to use the latest version of the Advance Toolchain or IBM XL compilers, use full optimization (-O3), and tune for the target processor, if possible (e.g. -mcpu=power8)."
+		marker_id="" />
+
+	<event name="LOADING FROM A CONST AREA"
+		problem="High penalty for loading from a const area."
+		solution="Use the latest version of the Advance Toolchain or IBM XL compilers, use full optimization (-O3), and tune for the target processor, if possible (e.g. -mcpu=power8). "
+		marker_id="" />
+
+	<event name="BRANCH PREDICTION"
+		problem="High penalty for wrong branch prediction."
+		solution="Use the latest version of the Advance Toolchain or IBM XL compilers, use full optimization (-O3), and tune for the target processor, if possible (e.g. -mcpu=power8). "
+		marker_id="" />
+
+	<event name="KILLED REGISTERS"
+		problem="High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls."
+		solution="Enable compiler optimization, if not already enabled. If optimization is enabled, tell the compiler to ignore some restrictions and inline the function: add the GNU extension &quot;__attribute__((always_inline))&quot; to the declaration of the function to be inlined.
+			&#xA;Example:
+			&#xA;&#x9;void __attribute__((always_inline)) foo(void);
+			&#xA;&#xA;Note: Validate the results, as inlining can cause performance regressions in some scenarios."
+		marker_id="com.ibm.fdpr.journal.killed_registers" />
+
+	<event name="LINK REGISTER OPTIMIZATION"
+		problem="High penalty for saves and restores of the link register in frequently-executed functions."
+		solution="Enable compiler optimization, if not already enabled. If optimization is enabled, trying to inline small functions may help. Add &quot;inline&quot; to the function declaration, or tell the compiler to ignore some restrictions and inline the function: add the GNU extension &quot;__attribute__((always_inline))&quot; to the declaration of the function to be inlined.
+		&#xA;Example:
+		&#xA;&#x9;void __attribute__((always_inline)) foo(void);
+		&#xA;&#xA;Note: Validate the results, as inlining can cause performance regressions in some scenarios. "
+		marker_id="" />
+
+	<event name="TOC STORE IN LOOP OPTIMIZATION"
+		problem="High penalty for TOC store in loop operation."
+		solution="1) Add the GNU extension &quot;__attribute__ ((__target__ (&quot;save-toc-indirect&quot;)))&quot; to the declaration of the function.
+		&#xA;2) Use &quot;-msave-toc-indirect&quot; flag when compiling the program.
+		&#xA;&#xA;Note: It is generally advisable to limit the scope of &quot;-msave-toc-indirect&quot; to the functions which need it (by using the function __attribute__), or only to the source file(s) in which the function(s) which need it reside, as it could cause performance regressions in more general scenarios."
+		marker_id="com.ibm.fdpr.journal.toc_store_lopt" />
+
+</events>
