@@ -15,9 +15,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-	Contributors:
-		* Rafael Sene <rpsene@br.ibm.com>
-		* Diego Fernandez-Merjildo <merijldo@br.ibm.com>
+    Contributors:
+        * Rafael Sene <rpsene@br.ibm.com>
+        * Diego Fernandez-Merjildo <merijldo@br.ibm.com>
         * Roberto Oliveira <rdutra@br.ibm.com>
 """
 
@@ -28,7 +28,7 @@ import core
 FDPRPRO = '/opt/ibm/fdprpro/bin/fdprpro'
 FDPR_WRAP = '/opt/ibm/fdprpro/bin/fdpr_instr_prof_jour'
 
-def run_sca(binary_path, binary_name, binary_args, options):
+def run_sca(binary_path, binary_args, options):
     '''Run the SCA tool'''
     opt_value = options.get_opt()
     warn_value = options.get_warn()
@@ -66,7 +66,7 @@ def run_sca(binary_path, binary_name, binary_args, options):
         status = core.execute(FDPR_WRAP + " " + binary_path + " " + binary_args)
         check_exit_status(status)
 
-        jour_file = binary_name + "-jour.xml"
+        jour_file = binary_path + "-jour.xml"
         core.run_xml_match(jour_file)
 
 def check_exit_status(status):

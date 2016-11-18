@@ -130,12 +130,11 @@ def main(argv=None):
         args, application_args = parser.parse_known_args()
         options_values = FdprOptions(args.opt, args.warn, args.verbose, args.processor)
         binary_path = args.path.pop(0)
-        binary_name = binary_path.split("/")[-1]
         binary_args = ' ' + ' '.join(map(str, args.path))
         binary_args = binary_args + ' ' + ' '.join(map(str, application_args))
 
         #Run SCA
-        controller.run_sca(binary_path, binary_name, binary_args, options_values)
+        controller.run_sca(binary_path, binary_args, options_values)
 
     except KeyboardInterrupt:
         return 0
