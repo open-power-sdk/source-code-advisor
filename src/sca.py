@@ -18,6 +18,7 @@ limitations under the License.
     Contributors:
         * Rafael Sene <rpsene@br.ibm.com>
         * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
+        * Roberto Oliveira <rdutra@br.ibm.com>
         """
 
 import sys
@@ -80,8 +81,13 @@ def main(argv=None):
     program_version_message = '%%(prog)s %s (%s)' % (program_version, program_build_date)
     program_shortdesc = '''
     --- Source Code Advisor (SCA) ---
-    Highlight potential problems in your source code and
-    offer suggested solutions.'''
+    Report potential performance issues and possible remedies for a given
+    executable.
+
+    SCA will non-destructively instrument the executable and run the
+    instrumented version, collecting performance data. Upon completion,
+    a report will be presented listing any detected issues with possible
+    remedies. '''
 
     program_license = '''%s
 
@@ -103,6 +109,7 @@ def main(argv=None):
         Contributors:
             * Rafael Sene <rpsene@br.ibm.com>
             * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
+            * Roberto Oliveira <rdutra@br.ibm.com>
             ----------------------------------------------------------
             ''' % (program_shortdesc)
 
