@@ -64,17 +64,16 @@ def cmdexists(command):
 def print_code_advisor(operations, events):
     ''' This function shows events info '''
     for oper in operations:
-        file_name = oper.get_site().get('dir') +  "/" + oper.get_site().get('file')
-        line = linecache.getline(file_name, int(oper.get_site().get('line')))
-        print COLOR_FAIL + ("  [Source file: %s] " % file_name) + COLOR_ENDC
-        print COLOR_FAIL + ("  [Problem: {} ]".format(oper.get_problem())) + COLOR_ENDC
-        print COLOR_WARNING + ("  [Function: {}  line: {}]".format(line.strip(),
-                                                                   oper.get_site().get('line'))
-                              ) + COLOR_ENDC
-        print "     \\"
-
         for event in events:
             if event.get_name() == oper.get_name().upper():
+                file_name = oper.get_site().get('dir') +  "/" + oper.get_site().get('file')
+                line = linecache.getline(file_name, int(oper.get_site().get('line')))
+                print COLOR_FAIL + ("  [Source file: %s] " % file_name) + COLOR_ENDC
+                print COLOR_FAIL + ("  [Problem: {} ]".format(oper.get_problem())) + COLOR_ENDC
+                print COLOR_WARNING + ("  [Function: {}  line: {}]".
+                                       format(line.strip(), oper.get_site().get('line'))
+                                      ) + COLOR_ENDC
+                print "     \\"
                 print COLOR_OKBLUE + "      [Solution]" + COLOR_ENDC
                 print event.get_solution()
                 print ""
