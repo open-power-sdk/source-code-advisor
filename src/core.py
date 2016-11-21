@@ -63,6 +63,7 @@ def cmdexists(command):
 
 def print_code_advisor(operations, events):
     ''' This function shows events info '''
+    count = 0
     for oper in operations:
         for event in events:
             if event.get_name() == oper.get_name().upper():
@@ -77,7 +78,11 @@ def print_code_advisor(operations, events):
                 print COLOR_OKBLUE + "      [Solution]" + COLOR_ENDC
                 print event.get_solution()
                 print ""
+                count+= 1
 
+    # No problem with a knwon solution was found
+    if count == 0:
+        print COLOR_WARNING + ("No reports found")
 
 def run_xml_match(journal_file):
     ''' This function match events from xml info'''
