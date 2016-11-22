@@ -59,8 +59,9 @@ class FileInfo(object):
 class Problem(object):
     '''This class contains info about a problem
     reported by fdpr '''
-    def __init__(self, name_problem, solution):
+    def __init__(self, name_problem, problem_description, solution):
         self.name_problem = name_problem
+        self.problem_description = problem_description
         self.solution = solution
         self.file_info_list = []
 
@@ -76,6 +77,10 @@ class Problem(object):
     def get_name_problem(self):
         '''return name problem'''
         return self.name_problem
+
+    def get_problem_description(self):
+        ''' return problem description'''
+        return self.problem_description
 
     def get_solution(self):
         '''return solution  of the problem'''
@@ -112,7 +117,8 @@ def print_sca(problems_dict):
         return
 
     for key in problems_dict:
-        print "[Problem: {} ]".format(problems_dict.get(key).get_name_problem())
+        print "[Problem: {}]".format(problems_dict.get(key).get_name_problem())
+        print "[Description: {}]".format(problems_dict.get(key).get_problem_description())
         print "     \\"
         print "      [Solution]"
         print problems_dict.get(key).get_solution()
@@ -120,7 +126,7 @@ def print_sca(problems_dict):
         for file_inf in problems_dict[key].get_file_info_list():
             file_name = file_inf.get_file_name()
             line = file_inf.get_line()
-            print "     [Source file: %s  : %s] " % (line, file_name)
+            print "     [Source file: %s : %s] " % (line, file_name)
         print "-------------------------------------------------------"
         print ""
 
@@ -139,7 +145,7 @@ def set_group_events(operations, events):
                 if problems_dict.get(prb_name, None) != None:
                     problems_dict.get(prb_name).get_file_info_list().append(file_info)
                 else:
-                    problem = Problem(prb_name, event.get_solution())
+                    problem = Problem(prb_name, event.get_problem(), event.get_solution())
                     problem.add_file_info(file_info)
                     problems_dict[prb_name] = problem
 
