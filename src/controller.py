@@ -28,13 +28,8 @@ import core
 FDPRPRO = '/opt/ibm/fdprpro/bin/fdprpro'
 FDPR_WRAP = '/opt/ibm/fdprpro/bin/fdpr_instr_prof_jour'
 
-def run_sca(binary_path, binary_args, options):
+def run_sca(binary_path, binary_args, fdpr_args):
     '''Run the SCA tool'''
-    opt_value = options.get_opt()
-    warn_value = options.get_warn()
-    verbose_value = options.get_verbose()
-    processor_value = options.get_proc()
-
     if not core.cmdexists(FDPRPRO):
         sys.stderr.write("fdprpro package is not installed. Install it and and try again.\n")
         sys.exit(0)
@@ -42,23 +37,8 @@ def run_sca(binary_path, binary_args, options):
         sys.stderr.write("fdpr_wrap package is not installed. Install it and try again.\n")
         sys.exit(0)
     else:
-        # Available optimization levels in FDPR: O, O2, O3, O4
-        if opt_value == 1:
-            opt_value = ''
-
-        # Create flags to be passed to fdpr
-        opt_flag = "-O" + str(opt_value)
-        warn_flag = "-w " + str(warn_value)
-        verbose_flag = "-v " + str(verbose_value)
-        processor_flag = "-m " + processor_value
-
-        # Export flags in system environment
-        cmd = ''
-        cmd += opt_flag + " "
-        cmd += warn_flag + " "
-        cmd += verbose_flag + " "
-        cmd += processor_flag
-        os.environ['FDPR_OPT_FLAGS'] = cmd
+        # Export fdpr flags in system environment
+        os.environ['FDPR_OPT_FLAGS'] = fdpr_args
 
         # Get binary absolute path
         binary_path = os.path.realpath(binary_path)

@@ -44,30 +44,6 @@ class CLIError(Exception):
     def __unicode__(self):
         return self.msg
 
-class FdprOptions(object):
-    ''' Hold FDPR options '''
-    opt_value = None
-    warn_value = None
-    verbose_value = None
-    proc_value = None
-    def __init__(self, opt, warn, verbose, proc):
-        self.opt_value = opt
-        self.warn_value = warn
-        self.verbose_value = verbose
-        self.proc_value = proc
-    def get_opt(self):
-        ''' Return opt option'''
-        return self.opt_value
-    def get_warn(self):
-        ''' Return warn option'''
-        return self.warn_value
-    def get_verbose(self):
-        ''' Return verbose option'''
-        return self.verbose_value
-    def get_proc(self):
-        ''' Return processor option'''
-        return self.proc_value
-
 def main(argv=None):
     ''' SCA main function '''
     if argv is None:
@@ -116,32 +92,21 @@ def main(argv=None):
     try:
         parser = ArgumentParser(description=program_license,
                                 formatter_class=RawDescriptionHelpFormatter)
-        parser.add_argument("-v", "--verbose", dest="verbose", type=int, choices=range(0, 4),
-                            required=False, default=0,
-                            help="set verbosity level [default: %(default)s]")
-        parser.add_argument("-o", "--optimize", dest="opt", type=int, choices=range(1, 5),
-                            required=False, default=3,
-                            help="set optimization level [default: %(default)s]")
-        parser.add_argument("-w", "--warning", dest="warn", type=int,
-                            choices=range(1, 5), required=False, default=2,
-                            help="set warning level [default: %(default)s]")
-        parser.add_argument("-p", "--processor", dest="processor", type=str,
-                            choices=['power7', 'power8'], required=False, default='power8',
-                            help="set processor model [default: %(default)s]")
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
-        parser.add_argument(dest="path",
-                            help="path to the application binary [default: %(default)s]",
+        parser.add_argument("--fdpr-args", dest="fdpr_args", type=str,
+                            help="fdprpro options. e.g.: --fdpr-args='-O3 -v 3'", default='',
+                            nargs='?')
+        parser.add_argument(dest="path", help="path to the application binary",
                             nargs='+')
 
         # Process arguments
         args, application_args = parser.parse_known_args()
-        options_values = FdprOptions(args.opt, args.warn, args.verbose, args.processor)
         binary_path = args.path.pop(0)
         binary_args = ' ' + ' '.join(map(str, args.path))
         binary_args = binary_args + ' ' + ' '.join(map(str, application_args))
 
         #Run SCA
-        controller.run_sca(binary_path, binary_args, options_values)
+        controller.run_sca(binary_path, binary_args, args.fdpr_args)
 
     except KeyboardInterrupt:
         return 0
