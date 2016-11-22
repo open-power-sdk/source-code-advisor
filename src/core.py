@@ -37,16 +37,59 @@ COLOR_ENDC = '\033[0m'
 COLOR_BOLD = '\033[1m'
 COLOR_UNDERLINE = '\033[4m'
 
+class FileInfo(object):
+    '''This class hold file info from Fdpr'''
+    def __init__(self, file_name, function, line):
+        self.file_name = file_name
+        self.function = function
+        self.line = line
+
+    def get_file_name(self):
+        '''Return file name'''
+        return self.file_name
+
+    def get_function(self):
+        '''return function problem'''
+        return self.function
+
+    def get_line(self):
+        '''return line number'''
+        return self.line
+
+class Problem(object):
+    '''This class contains info about a problem
+    reported by fdpr '''
+    def __init__(self, name_problem, solution):
+        self.name_problem = name_problem
+        self.solution = solution
+        self.file_info_list = []
+
+    def add_file_info(self, file_info):
+        '''Add a new FileInfo object, file info
+        about a file with same problem'''
+        self.file_info_list.append(file_info)
+
+    def get_file_info_list(self):
+        '''returns a list of FileInfo objects'''
+        return self.file_info_list
+
+    def get_name_problem(self):
+        '''return name problem'''
+        return self.name_problem
+
+    def get_solution(self):
+        '''return solution  of the problem'''
+        return self.solution
 
 def show_logo():
     ''' This function shows SCA header '''
-    print COLOR_HEADER + '''
+    print '''
   ####################################################################
   #                                                                  #
   #                   SDK Tools  - SOURCE CODE ADVISOR               #
   #                                                                  #
   ####################################################################
-    ''' + COLOR_ENDC
+    '''
 
 def execute(command):
     """execute a command with its parameters"""
@@ -61,28 +104,46 @@ def cmdexists(command):
                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return subp == 0
 
-def print_code_advisor(operations, events):
+def print_sca(problems_dict):
     ''' This function shows events info '''
-    count = 0
+    show_logo()
+    if not bool(problems_dict):
+        print "SCA : No reports found."
+        return
+
+    for key in problems_dict:
+        print "[Problem: {} ]".format(problems_dict.get(key).get_name_problem())
+        print "     \\"
+        print "      [Solution]"
+        print problems_dict.get(key).get_solution()
+        print ""
+        for file_inf in problems_dict[key].get_file_info_list():
+            file_name = file_inf.get_file_name()
+            line = file_inf.get_line()
+            print "     [Source file: %s  : %s] " % (line, file_name)
+        print "-------------------------------------------------------"
+        print ""
+
+def set_group_events(operations, events):
+    ''' This function group source files or lines
+    in source files with the same problem '''
+    problems_dict = {}
     for oper in operations:
         for event in events:
             if event.get_name() == oper.get_name().upper():
+                prb_name = event.get_name()
                 file_name = oper.get_site().get('dir') +  "/" + oper.get_site().get('file')
                 line = linecache.getline(file_name, int(oper.get_site().get('line')))
-                print COLOR_FAIL + ("  [Source file: %s] " % file_name) + COLOR_ENDC
-                print COLOR_FAIL + ("  [Problem: {} ]".format(oper.get_problem())) + COLOR_ENDC
-                print COLOR_WARNING + ("  [Function: {}  line: {}]".
-                                       format(line.strip(), oper.get_site().get('line'))
-                                      ) + COLOR_ENDC
-                print "     \\"
-                print COLOR_OKBLUE + "      [Solution]" + COLOR_ENDC
-                print event.get_solution()
-                print ""
-                count+= 1
+                file_info = FileInfo(file_name, line.strip(), oper.get_site().get('line'))
 
-    # No problem with a knwon solution was found
-    if count == 0:
-        print COLOR_WARNING + ("No reports found")
+                if problems_dict.get(prb_name, None) != None:
+                    problems_dict.get(prb_name).get_file_info_list().append(file_info)
+                else:
+                    problem = Problem(prb_name, event.get_solution())
+                    problem.add_file_info(file_info)
+                    problems_dict[prb_name] = problem
+
+    return problems_dict
 
 def run_xml_match(journal_file):
     ''' This function match events from xml info'''
@@ -93,5 +154,5 @@ def run_xml_match(journal_file):
     sca_xml = ScaXml()
     events = sca_xml.get_event_list()
 
-    show_logo()
-    print_code_advisor(operations, events)
+    group_problems = set_group_events(operations, events)
+    print_sca(group_problems)
