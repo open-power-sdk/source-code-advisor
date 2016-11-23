@@ -31,7 +31,7 @@ with open('LICENSE') as f:
 
 setup(
 	name='sca',
-	version='1.0.' + time.strftime("%Y%m%d%H%M%S"),
+	version='1.0.timestamp',
 	description='Source Code Advisor highlight potential problems in your source code and offer suggested solutions.',
 	long_description=readme,
 	author='Rafael Peria de Sene',
