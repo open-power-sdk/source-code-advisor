@@ -44,6 +44,38 @@ class CLIError(Exception):
     def __unicode__(self):
         return self.msg
 
+class ScaOptions(object):
+    ''' Hold SCA options '''
+    def __init__(self, fdpr_opt):
+        self.fdpr_opt = fdpr_opt
+        self.file_type_opt = None
+        self.file_name_opt = None
+        self.color_opt = None
+
+    def get_fdpr_opt(self):
+        '''return fdpr options'''
+        return self.fdpr_opt
+    def get_file_type_opt(self):
+        ''' Return file type option'''
+        return self.file_type_opt
+    def get_file_name(self):
+        ''' Return file name'''
+        return self.file_name_opt
+    def get_color_opt(self):
+        ''' Return color option'''
+        return self.color_opt
+
+    def set_file_type_opt(self, file_type_opt):
+        ''' Set file type option'''
+        self.file_type_opt = file_type_opt
+    def set_file_name(self, file_name_opt):
+        ''' Set file name option'''
+        self.file_name_opt = file_name_opt
+    def set_color_opt(self, color_opt):
+        ''' Set color option'''
+        self.color_opt = color_opt
+
+
 def main(argv=None):
     ''' SCA main function '''
     if argv is None:
@@ -93,8 +125,17 @@ def main(argv=None):
         parser = ArgumentParser(description=program_license,
                                 formatter_class=RawDescriptionHelpFormatter)
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
+
         parser.add_argument("--fdpr-args", dest="fdpr_args", type=str,
                             help="fdprpro options. e.g.: --fdpr-args='-O3 -v 3'", default='',
+                            nargs='?')
+        parser.add_argument("--file-type", dest="file_type", type=str,
+                            help="Save to file options. e.g.: --file-type=txt",
+                            default=None, choices=['txt'],
+                            nargs='?')
+        parser.add_argument("--file-name", dest="file_name", type=str,
+                            help="Save to file options. e.g.: --file-name=file_name",
+                            default=None,
                             nargs='?')
         parser.add_argument(dest="path", help="path to the application binary",
                             nargs='+')
@@ -104,9 +145,26 @@ def main(argv=None):
         binary_path = args.path.pop(0)
         binary_args = ' ' + ' '.join(map(str, args.path))
         binary_args = binary_args + ' ' + ' '.join(map(str, application_args))
+        sca_options = ScaOptions(args.fdpr_args)
+
+        if args.file_type != None:
+            if not args.file_type in ('txt', 'json'):
+                print "File type not supported"
+                return
+            sca_options.set_file_type_opt(args.file_type)
+            if args.file_name != None:
+                sca_options.set_file_name(args.file_name)
+            else:
+                sca_options.set_file_name('sca_report' + '.' + args.file_type)
+        elif args.file_name != None:
+            if not args.file_name:
+                print "Please set a file name"
+                return
+            sca_options.set_file_type_opt('txt')
+            sca_options.set_file_name(args.file_name + '.' + sca_options.get_file_type_opt())
 
         #Run SCA
-        controller.run_sca(binary_path, binary_args, args.fdpr_args)
+        controller.run_sca(binary_path, binary_args, sca_options)
 
     except KeyboardInterrupt:
         return 0

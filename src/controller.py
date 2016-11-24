@@ -29,7 +29,7 @@ FDPRPRO = '/opt/ibm/fdprpro/bin/fdprpro'
 FDPR_WRAP = '/opt/ibm/fdprpro/bin/fdpr_instr_prof_jour'
 SDK_DOWNLOAD_PAGE = 'https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdkdownload.html'
 
-def run_sca(binary_path, binary_args, fdpr_args):
+def run_sca(binary_path, binary_args, sca_options):
     '''Run the SCA tool'''
     if not core.cmdexists(FDPRPRO):
         sys.stderr.write("fdpr-pro package is not installed in the system. To install it, " +
@@ -41,7 +41,7 @@ def run_sca(binary_path, binary_args, fdpr_args):
         sys.exit(0)
     else:
         # Export fdpr flags in system environment
-        os.environ['FDPR_OPT_FLAGS'] = fdpr_args
+        os.environ['FDPR_OPT_FLAGS'] = sca_options.get_fdpr_opt()
 
         # Get binary absolute path
         binary_path = os.path.realpath(binary_path)
@@ -50,7 +50,12 @@ def run_sca(binary_path, binary_args, fdpr_args):
         check_exit_status(status)
 
         jour_file = binary_path + "-jour.xml"
-        core.run_xml_match(jour_file)
+        group_problems = core.run_xml_match(jour_file)
+
+        if sca_options.get_file_type_opt() == 'txt':
+            core.save_sca_txt(group_problems, sca_options.get_file_name())
+        else:
+            core.print_sca(group_problems)
 
 def check_exit_status(status):
     """

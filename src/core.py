@@ -130,6 +130,39 @@ def print_sca(problems_dict):
         print "-------------------------------------------------------"
         print ""
 
+def save_sca_txt(problems_dict, file_name):
+    ''' This function saves events info in a file'''
+    with open(file_name, 'w') as output_file:
+        output_file.write(" ####################################################################\n")
+        output_file.write(" #                                                                  #\n")
+        output_file.write(" #                   SDK Tools  - SOURCE CODE ADVISOR               #\n")
+        output_file.write(" #                                                                  #\n")
+        output_file.write(" ####################################################################\n")
+        output_file.write(" \n")
+
+        if not bool(problems_dict):
+            output_file.write("SCA : No reports found.")
+        else:
+            for key in problems_dict:
+                output_file.write("[Problem: {}]\n".format(
+                    problems_dict.get(key).get_name_problem()))
+                output_file.write("[Description: {}]\n".format(
+                    problems_dict.get(key).get_problem_description()))
+                output_file.write("     \\ \n")
+                output_file.write("      [Solution]\n")
+                output_file.write(problems_dict.get(key).get_solution())
+                output_file.write("\n\n")
+
+                for file_inf in problems_dict[key].get_file_info_list():
+                    file_name_src = file_inf.get_file_name()
+                    line = file_inf.get_line()
+                    output_file.write("     [Source file: %s : %s] \n" % (line, file_name_src))
+
+                output_file.write("\n-------------------------------------------------------")
+                output_file.write("\n")
+
+    print "Report in " + file_name
+
 def set_group_events(operations, events):
     ''' This function group source files or lines
     in source files with the same problem '''
@@ -161,4 +194,4 @@ def run_xml_match(journal_file):
     events = sca_xml.get_event_list()
 
     group_problems = set_group_events(operations, events)
-    print_sca(group_problems)
+    return group_problems
