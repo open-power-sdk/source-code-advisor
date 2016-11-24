@@ -127,8 +127,10 @@ def main(argv=None):
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
 
         parser.add_argument("--fdpr-args", dest="fdpr_args", type=str,
-                            help="fdprpro options. e.g.: --fdpr-args='-O3 -v 3'", default='',
-                            nargs='?')
+                            help= """fdprpro options, e.g.: --fdpr-args='-O3 -v 3'.
+                            To view a list of possible options for fdprpro, issue:
+                            /opt/ibm/fdprpro/bin/fdprpro --help""",
+                            default='', nargs='?')
         parser.add_argument("--file-type", dest="file_type", type=str,
                             help="Save to file options. e.g.: --file-type=txt",
                             default=None, choices=['txt'],
