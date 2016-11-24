@@ -55,7 +55,7 @@ def run_sca(binary_path, binary_args, sca_options):
         if sca_options.get_file_type_opt() == 'txt':
             core.save_sca_txt(group_problems, sca_options.get_file_name())
         else:
-            core.print_sca(group_problems)
+            core.print_sca(group_problems, sca_options.get_color_opt())
 
 def check_exit_status(status):
     """

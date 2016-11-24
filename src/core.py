@@ -28,14 +28,32 @@ from sca_events import ScaXml
 from journal_operations import JournalXml
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-COLOR_HEADER = '\033[95m'
-COLOR_OKBLUE = '\033[94m'
-COLOR_OKGREEN = '\033[92m'
-COLOR_WARNING = '\033[93m'
-COLOR_FAIL = '\033[91m'
-COLOR_ENDC = '\033[0m'
-COLOR_BOLD = '\033[1m'
-COLOR_UNDERLINE = '\033[4m'
+
+class ScaColor(object):
+    ''' Class to hold colors '''
+    def __init__(self, flag):
+        self.header = ''
+        self.okblue = ''
+        self.okgreen = ''
+        self.warning = ''
+        self.fail = ''
+        self.endc = ''
+        self.bold = ''
+        self.underline = ''
+
+        if flag:
+            self.with_color()
+
+    def with_color(self):
+        '''Set colors values'''
+        self.header = '\033[95m'
+        self.okblue = '\033[94m'
+        self.okgreen = '\033[92m'
+        self.warning = '\033[93m'
+        self.fail = '\033[91m'
+        self.endc = '\033[0m'
+        self.bold = '\033[1m'
+        self.underline = '\033[4m'
 
 class FileInfo(object):
     '''This class hold file info from Fdpr'''
@@ -109,24 +127,29 @@ def cmdexists(command):
                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return subp == 0
 
-def print_sca(problems_dict):
+def print_sca(problems_dict, color_flag):
     ''' This function shows events info '''
+    col = ScaColor(color_flag)
+    print col.header
     show_logo()
+    print col.endc
     if not bool(problems_dict):
-        print "SCA : No reports found."
+        print col.warning + "SCA : No reports found." + col.endc
         return
 
     for key in problems_dict:
-        print "[Problem: {}]".format(problems_dict.get(key).get_name_problem())
-        print "[Description: {}]".format(problems_dict.get(key).get_problem_description())
+        print col.fail + "[Problem: {}]".format(problems_dict.get(key).get_name_problem())
+        print "[Description: {}]".format(
+            problems_dict.get(key).get_problem_description()) + col.endc + col.okgreen
         print "     \\"
         print "      [Solution]"
         print problems_dict.get(key).get_solution()
+        print col.endc
         print ""
         for file_inf in problems_dict[key].get_file_info_list():
             file_name = file_inf.get_file_name()
             line = file_inf.get_line()
-            print "     [Source file: %s : %s] " % (line, file_name)
+            print col.warning + "     [Source file: %s : %s] " % (line, file_name) + col.endc
         print "-------------------------------------------------------"
         print ""
 

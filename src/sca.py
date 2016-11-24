@@ -126,6 +126,8 @@ def main(argv=None):
                                 formatter_class=RawDescriptionHelpFormatter)
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
 
+        parser.add_argument('--decorate', dest="decorate", action='store_true', help="Set color to sca output")
+
         parser.add_argument("--fdpr-args", dest="fdpr_args", type=str,
                             help= """fdprpro options, e.g.: --fdpr-args='-O3 -v 3'.
                             To view a list of possible options for fdprpro, issue:
@@ -148,6 +150,7 @@ def main(argv=None):
         binary_args = ' ' + ' '.join(map(str, args.path))
         binary_args = binary_args + ' ' + ' '.join(map(str, application_args))
         sca_options = ScaOptions(args.fdpr_args)
+        sca_options.set_color_opt(args.decorate)
 
         if args.file_type != None:
             if not args.file_type in ('txt', 'json'):
