@@ -27,14 +27,17 @@ import core
 
 FDPRPRO = '/opt/ibm/fdprpro/bin/fdprpro'
 FDPR_WRAP = '/opt/ibm/fdprpro/bin/fdpr_instr_prof_jour'
+SDK_DOWNLOAD_PAGE = 'https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdkdownload.html'
 
 def run_sca(binary_path, binary_args, fdpr_args):
     '''Run the SCA tool'''
     if not core.cmdexists(FDPRPRO):
-        sys.stderr.write("fdprpro package is not installed. Install it and and try again.\n")
+        sys.stderr.write("fdpr-pro package is not installed in the system. To install it, " +
+                         "download and manually install package from: " + SDK_DOWNLOAD_PAGE)
         sys.exit(0)
     elif not core.cmdexists(FDPR_WRAP):
-        sys.stderr.write("fdpr_wrap package is not installed. Install it and try again.\n")
+        sys.stderr.write("fdpr_wrap package is not installed in the system. To install it, " +
+                         "download and manually install package from: " + SDK_DOWNLOAD_PAGE)
         sys.exit(0)
     else:
         # Export fdpr flags in system environment
