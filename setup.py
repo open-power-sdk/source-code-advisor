@@ -46,7 +46,7 @@ setup(
 	scripts=['bin/sca'],
 	zip_safe=False,
 	classifiers=[
-		'Development Status :: 1 - Planning',
+		'Development Status :: 4 - Beta',
 		'Environment :: Console',
 		'Intended Audience :: Developers',
 		'Operating System :: POSIX :: Linux',
