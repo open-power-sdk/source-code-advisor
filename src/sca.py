@@ -98,28 +98,14 @@ def main(argv=None):
     a report will be presented listing any detected issues with possible
     remedies. '''
 
-    program_license = '''%s
+    program_license = '''%s \n
+    Licensed under the Apache Software License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
-    Copyright (C) 2016 IBM Corporation
-
-    Licensed under the Apache License, Version 2.0 (the “License”);
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    “AS IS” BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-    either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-        Contributors:
-            * Rafael Sene <rpsene@br.ibm.com>
-            * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
-            * Roberto Oliveira <rdutra@br.ibm.com>
-            ----------------------------------------------------------
+    Contributors:
+        * Rafael Sene <rpsene@br.ibm.com>
+        * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
+        * Roberto Oliveira <rdutra@br.ibm.com>
+    ----------------------------------------------------------
             ''' % (program_shortdesc)
 
     try:
