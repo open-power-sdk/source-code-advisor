@@ -16,43 +16,48 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-	Contributors:
-		* Rafael Sene <rpsene@br.ibm.com>
+    Contributors:
+    * Rafael Sene <rpsene@br.ibm.com>
 """
 
 from setuptools import setup, find_packages
+from pip.req import parse_requirements
 import time
 
 with open('README.rst') as f:
-	readme = f.read()
+    readme = f.read()
 
 with open('LICENSE') as f:
-	toollicense = f.read()
+    toollicense = f.read()
+
+requirements_list = parse_requirements('./requirements.txt', session=False)
+requirements = [str(required.req) for required in requirements_list]
 
 setup(
-	name='sca',
-	version='1.0.timestamp',
-	description='Source Code Advisor highlight potential problems in your source code and offer suggested solutions.',
-	long_description=readme,
-	author='Rafael Peria de Sene',
-	author_email='rpsene@br.ibm.com',
-	url='https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdklop.html',
-	license=toollicense,
-	packages=find_packages(exclude=("tests",)),
-	data_files=[("", ["LICENSE"])],
-	include_package_data=True,
-	test_suite='nose.collector',
-	tests_require=['nose'],
-	scripts=['bin/sca'],
-	zip_safe=False,
-	classifiers=[
-		'Development Status :: 4 - Beta',
-		'Environment :: Console',
-		'Intended Audience :: Developers',
-		'Operating System :: POSIX :: Linux',
-		'Programming Language :: C',
-		'Programming Language :: C++',
-		'Topic :: Software Development :: Build Tools',
-		'License :: OSI Approved :: Apache Software License',
+    name='sca',
+    version='1.0.timestamp',
+    description='Source Code Advisor highlight potential problems in your source code and offer suggested solutions.',
+    long_description=readme,
+    author='Rafael Peria de Sene',
+    author_email='rpsene@br.ibm.com',
+    url='https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdklop.html',
+    license=toollicense,
+    install_requires=requirements,
+    packages=find_packages(exclude=("tests",)),
+    data_files=[("", ["LICENSE"])],
+    include_package_data=True,
+    test_suite='nose.collector',
+    tests_require=['nose'],
+    scripts=['bin/sca'],
+    zip_safe=False,
+    classifiers=[
+    'Development Status :: 4 - Beta',
+    'Environment :: Console',
+    'Intended Audience :: Developers',
+    'Operating System :: POSIX :: Linux',
+    'Programming Language :: C',
+    'Programming Language :: C++',
+    'Topic :: Software Development :: Build Tools',
+    'License :: OSI Approved :: Apache Software License',
           ],
 )
