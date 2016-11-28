@@ -115,13 +115,13 @@ def main(argv=None):
         parser.add_argument('--decorate', dest="decorate", action='store_true',
                             help="Set color to sca output")
         parser.add_argument("--fdpr-args", dest="fdpr_args", type=str,
-                            help= """fdprpro options, e.g.: --fdpr-args='-O3 -v 3'.
+                            help="""fdprpro options, e.g.: --fdpr-args='-O3 -v 3'.
                             To get all available options for fdprpro issue:
                             /opt/ibm/fdprpro/bin/fdprpro --help""",
                             default='', nargs='?')
         parser.add_argument("--output-type", dest="file_type", type=str,
                             help="The output of the report file. e.g.: --output-type=txt",
-                            default=None, choices=['txt'],
+                            default=None, choices=['txt', 'json'],
                             nargs='?')
         parser.add_argument("--output-name", dest="file_name", type=str,
                             help="The name of the report file. e.g.: --output-name=file_name",
@@ -152,7 +152,8 @@ def main(argv=None):
                 print "Please set a file name"
                 return
             sca_options.set_file_type_opt('txt')
-            sca_options.set_file_name(args.file_name + '.' + sca_options.get_file_type_opt())
+            sca_options.set_file_name(args.file_name + '.' +
+                                      sca_options.get_file_type_opt())
 
         #Run SCA
         controller.run_sca(binary_path, binary_args, sca_options)

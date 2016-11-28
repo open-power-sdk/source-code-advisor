@@ -32,12 +32,12 @@ SDK_DOWNLOAD_PAGE = 'https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdkdownl
 def run_sca(binary_path, binary_args, sca_options):
     '''Run the SCA tool'''
     if not core.cmdexists(FDPRPRO):
-        sys.stderr.write("fdpr-pro package is not installed in the system. To install it, " +
-                         "download and manually install package from: " + SDK_DOWNLOAD_PAGE)
+        sys.stderr.write("fdpr-pro package is not installed in the system.\nTo install it, " +
+                         "download and manually install package from: " + SDK_DOWNLOAD_PAGE + '\n')
         sys.exit(0)
     elif not core.cmdexists(FDPR_WRAP):
-        sys.stderr.write("fdpr_wrap package is not installed in the system. To install it, " +
-                         "download and manually install package from: " + SDK_DOWNLOAD_PAGE)
+        sys.stderr.write("fdpr_wrap package is not installed in the system.\nTo install it, " +
+                         "download and manually install package from: " + SDK_DOWNLOAD_PAGE + '\n')
         sys.exit(0)
     else:
         # Export fdpr flags in system environment
@@ -52,8 +52,13 @@ def run_sca(binary_path, binary_args, sca_options):
         jour_file = binary_path + "-jour.xml"
         group_problems = core.run_xml_match(jour_file)
 
-        if sca_options.get_file_type_opt() == 'txt':
-            core.save_sca_txt(group_problems, sca_options.get_file_name())
+        if sca_options.get_file_type_opt() != None:
+            ok_val = core.save_sca(group_problems, sca_options.get_file_name(),
+                                   sca_options.get_file_type_opt())
+            if not ok_val:
+                print "\nSCA report: An error happened when saving the file.\n"
+            else:
+                print "\nSCA report was saved on file: " + sca_options.get_file_name() + '\n'
         else:
             core.print_sca(group_problems, sca_options.get_color_opt())
 

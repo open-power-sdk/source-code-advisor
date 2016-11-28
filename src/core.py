@@ -24,36 +24,13 @@ limitations under the License.
 import subprocess
 import os
 import linecache
+import json
 from sca_events import ScaXml
 from journal_operations import JournalXml
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
-class ScaColor(object):
-    ''' Class to hold colors '''
-    def __init__(self, flag):
-        self.header = ''
-        self.okblue = ''
-        self.okgreen = ''
-        self.warning = ''
-        self.fail = ''
-        self.endc = ''
-        self.bold = ''
-        self.underline = ''
 
-        if flag:
-            self.with_color()
-
-    def with_color(self):
-        '''Set colors values'''
-        self.header = '\033[95m'
-        self.okblue = '\033[94m'
-        self.okgreen = '\033[92m'
-        self.warning = '\033[93m'
-        self.fail = '\033[91m'
-        self.endc = '\033[0m'
-        self.bold = '\033[1m'
-        self.underline = '\033[4m'
 
 class FileInfo(object):
     '''This class hold file info from Fdpr'''
@@ -82,6 +59,11 @@ class Problem(object):
         self.problem_description = problem_description
         self.solution = solution
         self.file_info_list = []
+
+    def to_json(self):
+        '''This function implements serialization'''
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
     def add_file_info(self, file_info):
         '''Add a new FileInfo object, file info
@@ -127,29 +109,53 @@ def cmdexists(command):
                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return subp == 0
 
+def get_sca_color(flag):
+    '''Set colors values'''
+    col_dict = {}
+    col_dict['header'] = ''
+    col_dict['okblue'] = ''
+    col_dict['okgreen'] = ''
+    col_dict['warning'] = ''
+    col_dict['fail'] = ''
+    col_dict['endc'] = ''
+    col_dict['bold'] = ''
+    col_dict['underline'] = ''
+
+    if flag:
+        col_dict['header'] = '\033[95m'
+        col_dict['okblue'] = '\033[94m'
+        col_dict['okgreen'] = '\033[92m'
+        col_dict['warning'] = '\033[93m'
+        col_dict['fail'] = '\033[91m'
+        col_dict['endc'] = '\033[0m'
+        col_dict['bold'] = '\033[1m'
+        col_dict['underline'] = '\033[4m'
+
+    return col_dict
+
 def print_sca(problems_dict, color_flag):
     ''' This function shows events info '''
-    col = ScaColor(color_flag)
-    print col.header
+    col = get_sca_color(color_flag)
+    print col['header']
     show_logo()
-    print col.endc
+    print col['endc']
     if not bool(problems_dict):
-        print col.warning + "SCA : No reports found." + col.endc
+        print col['warning'] + "SCA : No reports found." + col['endc']
         return
 
     for key in problems_dict:
-        print col.fail + "[Problem: {}]".format(problems_dict.get(key).get_name_problem())
+        print col['fail'] + "[Problem: {}]".format(problems_dict.get(key).get_name_problem())
         print "[Description: {}]".format(
-            problems_dict.get(key).get_problem_description()) + col.endc + col.okgreen
+            problems_dict.get(key).get_problem_description()) + col['endc'] + col['okgreen']
         print "     \\"
         print "      [Solution]"
         print problems_dict.get(key).get_solution()
-        print col.endc
+        print col['endc']
         print ""
         for file_inf in problems_dict[key].get_file_info_list():
             file_name = file_inf.get_file_name()
             line = file_inf.get_line()
-            print col.warning + "     [Source file: %s : %s] " % (file_name, line) + col.endc
+            print col['warning'] + "     [Source file: %s : %s] " % (file_name, line) + col['endc']
         print "-------------------------------------------------------"
         print ""
 
@@ -184,7 +190,23 @@ def save_sca_txt(problems_dict, file_name):
                 output_file.write("\n-------------------------------------------------------")
                 output_file.write("\n")
 
-    print "\nSCA report was saved on file: " + file_name
+def save_sca_json(problems_dict, file_name):
+    '''This function saves events info in a Json file'''
+    with open(file_name, 'w') as outfile:
+        for key in problems_dict:
+            outfile.write(problems_dict.get(key).to_json())
+
+def save_sca(problems_dict, file_name, file_type):
+    '''This function saves events in a file'''
+    ret_val = False
+    if file_type == 'txt':
+        save_sca_txt(problems_dict, file_name)
+        ret_val = True
+    elif file_type == 'json':
+        save_sca_json(problems_dict, file_name)
+        ret_val = True
+
+    return ret_val
 
 def set_group_events(operations, events):
     ''' This function group source files or lines
