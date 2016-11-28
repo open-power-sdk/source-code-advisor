@@ -74,6 +74,9 @@ class ScaOptions(object):
         ''' Set color option'''
         self.color_opt = color_opt
 
+def get_timestamp():
+    ''' Return the current timestamp '''
+    return time.strftime("%Y%m%d%H%M%S")
 
 def main(argv=None):
     ''' SCA main function '''
@@ -123,20 +126,19 @@ def main(argv=None):
         parser = ArgumentParser(description=program_license,
                                 formatter_class=RawDescriptionHelpFormatter)
         parser.add_argument('-V', '--version', action='version', version=program_version_message)
-
-        parser.add_argument('--decorate', dest="decorate", action='store_true', help="Set color to sca output")
-
+        parser.add_argument('--decorate', dest="decorate", action='store_true',
+                            help="Set color to sca output")
         parser.add_argument("--fdpr-args", dest="fdpr_args", type=str,
                             help= """fdprpro options, e.g.: --fdpr-args='-O3 -v 3'.
-                            To view a list of possible options for fdprpro, issue:
+                            To get all available options for fdprpro issue:
                             /opt/ibm/fdprpro/bin/fdprpro --help""",
                             default='', nargs='?')
-        parser.add_argument("--file-type", dest="file_type", type=str,
-                            help="Save to file options. e.g.: --file-type=txt",
+        parser.add_argument("--output-type", dest="file_type", type=str,
+                            help="The output of the report file. e.g.: --output-type=txt",
                             default=None, choices=['txt'],
                             nargs='?')
-        parser.add_argument("--file-name", dest="file_name", type=str,
-                            help="Save to file options. e.g.: --file-name=file_name",
+        parser.add_argument("--output-name", dest="file_name", type=str,
+                            help="The name of the report file. e.g.: --output-name=file_name",
                             default=None,
                             nargs='?')
         parser.add_argument(dest="path", help="path to the application binary",
@@ -158,7 +160,7 @@ def main(argv=None):
             if args.file_name != None:
                 sca_options.set_file_name(args.file_name)
             else:
-                sca_options.set_file_name('sca_report' + '.' + args.file_type)
+                sca_options.set_file_name('sca_report_' + get_timestamp() + '.' + args.file_type)
         elif args.file_name != None:
             if not args.file_name:
                 print "Please set a file name"

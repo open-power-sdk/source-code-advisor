@@ -149,12 +149,12 @@ def print_sca(problems_dict, color_flag):
         for file_inf in problems_dict[key].get_file_info_list():
             file_name = file_inf.get_file_name()
             line = file_inf.get_line()
-            print col.warning + "     [Source file: %s : %s] " % (line, file_name) + col.endc
+            print col.warning + "     [Source file: %s : %s] " % (file_name, line) + col.endc
         print "-------------------------------------------------------"
         print ""
 
 def save_sca_txt(problems_dict, file_name):
-    ''' This function saves events info in a file'''
+    ''' This function saves events info in a txt file'''
     with open(file_name, 'w') as output_file:
         output_file.write(" ####################################################################\n")
         output_file.write(" #                                                                  #\n")
@@ -179,12 +179,12 @@ def save_sca_txt(problems_dict, file_name):
                 for file_inf in problems_dict[key].get_file_info_list():
                     file_name_src = file_inf.get_file_name()
                     line = file_inf.get_line()
-                    output_file.write("     [Source file: %s : %s] \n" % (line, file_name_src))
+                    output_file.write("     [Source file: %s : %s] \n" % (file_name_src, line))
 
                 output_file.write("\n-------------------------------------------------------")
                 output_file.write("\n")
 
-    print "Report in " + file_name
+    print "\nSCA report was saved on file: " + file_name
 
 def set_group_events(operations, events):
     ''' This function group source files or lines
