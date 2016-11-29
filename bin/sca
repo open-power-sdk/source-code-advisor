@@ -20,5 +20,5 @@ limitations under the License.
         * Rafael Sene <rpsene@br.ibm.com>
 """
 
-from src import sca
+from sca import sca
 sca.main()

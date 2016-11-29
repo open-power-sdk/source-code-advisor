@@ -20,7 +20,7 @@ limitations under the License.
 
 import unittest
 import platform
-from src import core
+from sca import core
 
 class TestCmdExecution(unittest.TestCase):
     def test_cmdexec(self):
