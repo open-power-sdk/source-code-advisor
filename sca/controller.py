@@ -29,6 +29,7 @@ FDPRPRO = '/opt/ibm/fdprpro/bin/fdprpro'
 FDPR_WRAP = '/opt/ibm/fdprpro/bin/fdpr_instr_prof_jour'
 SDK_DOWNLOAD_PAGE = 'https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdkdownload.html'
 
+
 def run_sca(binary_path, binary_args, sca_options):
     '''Run the SCA tool'''
     if not core.cmdexists(FDPRPRO):
@@ -61,6 +62,7 @@ def run_sca(binary_path, binary_args, sca_options):
                 print "\nSCA report was saved on file: " + sca_options.get_file_name() + '\n'
         else:
             core.print_sca(group_problems, sca_options.get_color_opt())
+
 
 def check_exit_status(status):
     """

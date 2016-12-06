@@ -15,10 +15,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-	Contributors:
-		* Rafael Sene <rpsene@br.ibm.com>
-		* Roberto Oliveira <rdutra@br.ibm.com>
-		* Diego Fernandez-Merjildo <merjildo@br.ibm.com>
+    Contributors:
+        * Rafael Sene <rpsene@br.ibm.com>
+        * Roberto Oliveira <rdutra@br.ibm.com>
+        * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
 """
 
 import subprocess
@@ -29,7 +29,6 @@ from sca_events import ScaXml
 from journal_operations import JournalXml
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-
 
 
 class FileInfo(object):
@@ -50,6 +49,7 @@ class FileInfo(object):
     def get_line(self):
         '''return line number'''
         return self.line
+
 
 class Problem(object):
     '''This class contains info about a problem
@@ -86,15 +86,6 @@ class Problem(object):
         '''return solution  of the problem'''
         return self.solution
 
-def show_logo():
-    ''' This function shows SCA header '''
-    print '''
-  ####################################################################
-  #                                                                  #
-  #                   SDK Tools  - SOURCE CODE ADVISOR               #
-  #                                                                  #
-  ####################################################################
-    '''
 
 def execute(command):
     """execute a command with its parameters"""
@@ -103,11 +94,13 @@ def execute(command):
     except subprocess.CalledProcessError as excp:
         return excp.returncode
 
+
 def cmdexists(command):
     """check if a command exists"""
     subp = subprocess.call("type " + command, shell=True,
                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     return subp == 0
+
 
 def get_sca_color(flag):
     '''Set colors values'''
@@ -133,11 +126,11 @@ def get_sca_color(flag):
 
     return col_dict
 
+
 def print_sca(problems_dict, color_flag):
     ''' This function shows events info '''
     col = get_sca_color(color_flag)
     print col['header']
-    show_logo()
     print col['endc']
     if not bool(problems_dict):
         print col['warning'] + "SCA : No reports found." + col['endc']
@@ -147,28 +140,21 @@ def print_sca(problems_dict, color_flag):
         print col['fail'] + "[Problem: {}]".format(problems_dict.get(key).get_name_problem())
         print "[Description: {}]".format(
             problems_dict.get(key).get_problem_description()) + col['endc'] + col['okgreen']
-        print "     \\"
-        print "      [Solution]"
-        print problems_dict.get(key).get_solution()
+        print "[Solution:"
+        print problems_dict.get(key).get_solution() + "]"
         print col['endc']
         print ""
         for file_inf in problems_dict[key].get_file_info_list():
             file_name = file_inf.get_file_name()
             line = file_inf.get_line()
-            print col['warning'] + "     [Source file: %s : %s] " % (file_name, line) + col['endc']
+            print col['warning'] + "[Source file: %s : %s] " % (file_name, line) + col['endc']
         print "-------------------------------------------------------"
         print ""
+
 
 def save_sca_txt(problems_dict, file_name):
     ''' This function saves events info in a txt file'''
     with open(file_name, 'w') as output_file:
-        output_file.write(" ####################################################################\n")
-        output_file.write(" #                                                                  #\n")
-        output_file.write(" #                   SDK Tools  - SOURCE CODE ADVISOR               #\n")
-        output_file.write(" #                                                                  #\n")
-        output_file.write(" ####################################################################\n")
-        output_file.write(" \n")
-
         if not bool(problems_dict):
             output_file.write("SCA : No reports found.")
         else:
@@ -177,24 +163,23 @@ def save_sca_txt(problems_dict, file_name):
                     problems_dict.get(key).get_name_problem()))
                 output_file.write("[Description: {}]\n".format(
                     problems_dict.get(key).get_problem_description()))
-                output_file.write("     \\ \n")
-                output_file.write("      [Solution]\n")
-                output_file.write(problems_dict.get(key).get_solution())
+                output_file.write("[Solution:\n")
+                output_file.write(problems_dict.get(key).get_solution()) + "]"
                 output_file.write("\n\n")
-
                 for file_inf in problems_dict[key].get_file_info_list():
                     file_name_src = file_inf.get_file_name()
                     line = file_inf.get_line()
-                    output_file.write("     [Source file: %s : %s] \n" % (file_name_src, line))
-
+                    output_file.write("[Source file: %s : %s] \n" % (file_name_src, line))
                 output_file.write("\n-------------------------------------------------------")
                 output_file.write("\n")
+
 
 def save_sca_json(problems_dict, file_name):
     '''This function saves events info in a Json file'''
     with open(file_name, 'w') as outfile:
         for key in problems_dict:
             outfile.write(problems_dict.get(key).to_json())
+
 
 def save_sca(problems_dict, file_name, file_type):
     '''This function saves events in a file'''
@@ -207,6 +192,7 @@ def save_sca(problems_dict, file_name, file_type):
         ret_val = True
 
     return ret_val
+
 
 def set_group_events(operations, events):
     ''' This function group source files or lines
@@ -228,6 +214,7 @@ def set_group_events(operations, events):
                     problems_dict[prb_name] = problem
 
     return problems_dict
+
 
 def run_xml_match(journal_file):
     ''' This function match events from xml info'''

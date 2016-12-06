@@ -19,6 +19,7 @@ limitations under the License.
 """
 import xml.etree.ElementTree as elemTree
 
+
 class Operation(object):
     '''Class to hold operation values which comes from journal file'''
     name = ''
@@ -64,9 +65,9 @@ class JournalXml(object):
         root = tree.getroot()
 
         for oper in root.iter('operation'):
-            site_dict = {'line':oper.find('site').find('line').text,
-                         'dir':oper.find('site').find('dir').text,
-                         'file':oper.find('site').find('file').text,}
+            site_dict = {'line':  oper.find('site').find('line').text,
+                         'dir': oper.find('site').find('dir').text,
+                         'file': oper.find('site').find('file').text, }
             operation = Operation(oper.attrib['name'], oper.find('problem').text,
                                   oper.find('solution').text, site_dict)
             self.operation_list.append(operation)
