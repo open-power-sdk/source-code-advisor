@@ -24,21 +24,24 @@ from setuptools import setup, find_packages
 from pip.req import parse_requirements
 
 with open('README.rst') as f:
-    readme = f.read()
+    README = f.read()
 
-requirements_list = parse_requirements('./requirements.txt', session=False)
-requirements = [str(required.req) for required in requirements_list]
+REQUIREMENTS_LIST = parse_requirements('./requirements.txt', session=False)
+REQUIREMENTS = [str(required.req) for required in REQUIREMENTS_LIST]
 
 setup(
     name='sca',
     version='1.0.timestamp',
-    description='Source Code Advisor highlight potential problems in your source code and offer suggested solutions.',
-    long_description=readme,
-    author='Rafael Peria de Sene',
-    author_email='rpsene@br.ibm.com',
+    description='Source Code Advisor highlight potential problems in your\
+    source code and offer suggested solutions.',
+    long_description=README,
+    author='Rafael Peria de Sene, Roberto Guimarães Dutra de Oliveira, \
+Daniel Battaiola Kreling, Diego Fernandez Merjildo',
+    author_email='rpsene@br.ibm.com, rdutra@br.ibm.com, \
+dbkreling@br.ibm.com, merjildo@br.ibm.com',
     url='https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdklop.html',
     license='Apache Software License 2.0',
-    install_requires=requirements,
+    install_requires=REQUIREMENTS,
     packages=find_packages(exclude=("tests",)),
     data_files=[("", ["LICENSE"])],
     include_package_data=True,
@@ -47,13 +50,13 @@ setup(
     scripts=['bin/sca'],
     zip_safe=False,
     classifiers=[
-    'Development Status :: 4 - Beta',
-    'Environment :: Console',
-    'Intended Audience :: Developers',
-    'Operating System :: POSIX :: Linux',
-    'Programming Language :: C',
-    'Programming Language :: C++',
-    'Topic :: Software Development :: Build Tools',
-    'License :: OSI Approved :: Apache Software License 2.0',
-          ],
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: C',
+        'Programming Language :: C++',
+        'Topic :: Software Development :: Build Tools',
+        'License :: OSI Approved :: Apache Software License 2.0',
+    ],
 )

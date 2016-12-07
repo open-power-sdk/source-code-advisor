@@ -1,12 +1,56 @@
 Source Code Advisor - SCA
-========================
+=========================
 
-The SCA configuration allows you to specify the workload needed to collect the profile of the program.
-When running this configuration, the program is built, if necessary, using the standard project build
-process. Once the executable is available, FDPR creates an instrumented version and runs it using the
-specified workload. FDPR then performs a pseudo optimization step producing a journal of the
-performance problems found. The result is an XML-formatted file that lists the specific problems found,
-their exact location in the source, and so on. With the XML journal available, the Source Code Advisor
-view is displayed to visualize the set of problems, allowing you to navigate through the problems and
-the corresponding places in the source where they were found. The view provides a recommended course
-of action for each problem at various abstraction levels (source change, compiler switches, and so on.)
+Source Code Advisor (SCA) and Feedback-Directed Program Restructuring (FDPR) work together to
+allow you to analyze and optimize your applications.
+
+FDPR works similarly to a compiler: it reads a linked executable program and produces an optimized
+version of it. Both regular executable and shared library forms are supported. The optimization uses an
+execution profile, collected by running an instrumented version of the input.
+
+During the code optimization process, FDPR produces a journal of the optimizations performed. The
+Source Code Advisor uses this journal, produced as an XML file, to highlight potential problems in your
+source code and to offer suggested solutions. The journal explains each optimization site, including the
+source location, execution count, the performance problem found, and the user action required to resolve
+the problem. It is important to select a representative workload for both SCA and for FDPR so that the
+optimization step is effective.
+
+Because SCA uses information gathered by FDPR, knowledge of this tool is important.
+
+The combination of SCA and FDPR provide you with two major approaches to performance analysis and
+optimization:
+        * Find and visualize performance problems in the source program using feedback-directed analysis.
+        * Perform feedback-directed optimization of an executable program (or a shared library).
+
+--------------------------------------------------------------------------------------------------------
+
+Usage: sca [-h] [--version] [--color] [--fdprpro-args [FDPRPRO_ARGS]]
+           [--output-type [{txt,json}]] [--output-name [FILE_NAME]]
+           application_path [application_path ...]
+
+    --- Source Code Advisor (SCA) ---
+    Report potential performance issues and possible remedies for a given
+    executable.
+
+    SCA will non-destructively instrument the executable and run the
+    instrumented version, collecting performance data. Upon completion,
+    a report will be presented listing any detected issues with possible
+    remedies.
+
+
+positional arguments:
+  application_path      path to the application binary and its arguments
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --version, -V         show program's version number and exit
+  --color               displays results in color
+  --fdprpro-args [FDPRPRO_ARGS]
+                        fdprpro options, e.g.: --fdprpro-args='-O3 -v 3'. To
+                        get all available options for fdprpro issue:
+                        /opt/ibm/fdprpro/bin/fdprpro --help
+  --output-type [{txt,json}]
+                        The output of the report file. e.g.:--output-type=txt
+  --output-name [FILE_NAME]
+                        The name of the report file. e.g.: --output-
+                        name=file_name
