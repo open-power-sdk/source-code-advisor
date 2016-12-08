@@ -202,9 +202,10 @@ def set_group_events(operations, events):
         for event in events:
             if event.get_name() == oper.get_name().upper():
                 prb_name = event.get_name()
-                file_name = oper.get_site().get('dir') +  "/" + oper.get_site().get('file')
-                line = linecache.getline(file_name, int(oper.get_site().get('line')))
-                file_info = FileInfo(file_name, line.strip(), oper.get_site().get('line'))
+                file_name = oper.get_site().get('file') or ''
+                file_path = oper.get_site().get('dir') + "/" + file_name
+                line = linecache.getline(file_path, int(oper.get_site().get('line')))
+                file_info = FileInfo(file_path, line.strip(), oper.get_site().get('line'))
 
                 if problems_dict.get(prb_name, None) != None:
                     problems_dict.get(prb_name).get_file_info_list().append(file_info)
