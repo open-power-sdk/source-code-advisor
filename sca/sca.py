@@ -164,12 +164,7 @@ def main(argv=None):
         controller.run_sca(binary_path, binary_args, sca_options)
 
     except KeyboardInterrupt:
-        return 0
-    except Exception, excp:
-        indent = len(program_name) * " "
-        sys.stderr.write(program_name + ": " + repr(excp) + "\n")
-        sys.stderr.write(indent + "  for help use --help")
-        return 2
+        return 1
 
 if __name__ == "__main__":
     sys.exit(main())
