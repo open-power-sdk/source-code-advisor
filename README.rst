@@ -28,15 +28,6 @@ Usage: sca [-h] [--version] [--color] [--fdprpro-args [FDPRPRO_ARGS]]
            [--output-type [{txt,json}]] [--output-name [FILE_NAME]]
            application_path [application_path ...]
 
-    --- Source Code Advisor (SCA) ---
-    Report potential performance issues and possible remedies for a given
-    executable.
-
-    SCA will non-destructively instrument the executable and run the
-    instrumented version, collecting performance data. Upon completion,
-    a report will be presented listing any detected issues with possible
-    remedies.
-
 
 positional arguments:
   application_path      path to the application binary and its arguments
@@ -54,3 +45,11 @@ optional arguments:
   --output-name [FILE_NAME]
                         The name of the report file. e.g.: --output-
                         name=file_name
+
+
+Exit Status
+    SCA may return one of several error codes if it encounters problems.
+
+    0 No problems occurred.
+    1 Generic error code.
+    2 Some dependency tool is missing.

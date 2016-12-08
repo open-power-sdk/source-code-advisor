@@ -35,11 +35,11 @@ def run_sca(binary_path, binary_args, sca_options):
     if not core.cmdexists(FDPRPRO):
         sys.stderr.write("fdpr-pro package is not installed in the system.\nTo install it, " +
                          "download and manually install package from: " + SDK_DOWNLOAD_PAGE + '\n')
-        sys.exit(0)
+        sys.exit(2)
     elif not core.cmdexists(FDPR_WRAP):
         sys.stderr.write("fdpr_wrap package is not installed in the system.\nTo install it, " +
                          "download and manually install package from: " + SDK_DOWNLOAD_PAGE + '\n')
-        sys.exit(0)
+        sys.exit(2)
     else:
         # Export fdpr flags in system environment
         os.environ['FDPR_OPT_FLAGS'] = sca_options.get_fdpr_opt()
@@ -70,10 +70,10 @@ def check_exit_status(status):
     """
     if status == 1:
         sys.stderr.write('FDPR failed during application instrumentation.\n')
-        sys.exit(0)
+        sys.exit(1)
     elif status == 2:
         sys.stderr.write('FDPR failed during application profiling.\n')
-        sys.exit(0)
+        sys.exit(1)
     elif status == 3:
         sys.stderr.write('FDPR failed during journal production.\n')
-        sys.exit(0)
+        sys.exit(1)
