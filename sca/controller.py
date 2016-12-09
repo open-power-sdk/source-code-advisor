@@ -59,7 +59,7 @@ def run_sca(binary_path, binary_args, sca_options):
             if not ok_val:
                 print "\nSCA report: An error happened when saving the file.\n"
             else:
-                print "\nSCA report was saved on file: " + sca_options.get_file_name() + '\n'
+                print "\nSCA report was saved in file: " + sca_options.get_file_name() + '\n'
         else:
             core.print_sca(group_problems, sca_options.get_color_opt())
 

@@ -23,7 +23,6 @@ limitations under the License.
 
 import subprocess
 import os
-import linecache
 import json
 from sca_events import ScaXml
 from journal_operations import JournalXml
@@ -33,10 +32,11 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 class FileInfo(object):
     '''This class hold file info from Fdpr'''
-    def __init__(self, file_name, function, line):
+    def __init__(self, file_name, function, line, address):
         self.file_name = file_name
         self.function = function
         self.line = line
+        self.address = address
 
     def get_file_name(self):
         '''Return file name'''
@@ -49,6 +49,10 @@ class FileInfo(object):
     def get_line(self):
         '''return line number'''
         return self.line
+
+    def get_address(self):
+        """ return adress (ip) """
+        return self.address
 
 
 class Problem(object):
@@ -137,17 +141,27 @@ def print_sca(problems_dict, color_flag):
         return
 
     for key in problems_dict:
-        print col['fail'] + "[Problem: {}]".format(problems_dict.get(key).get_name_problem())
+        problem = problems_dict.get(key)
+        print col['fail'] + "[Problem: {}]".format(problem.get_name_problem())
         print "[Description: {}]".format(
-            problems_dict.get(key).get_problem_description()) + col['endc'] + col['okgreen']
+            problem.get_problem_description()) + col['endc'] + col['okgreen']
         print "[Solution:"
-        print problems_dict.get(key).get_solution() + "]"
-        print col['endc']
-        print ""
+        print problem.get_solution() + "\n]"
         for file_inf in problems_dict[key].get_file_info_list():
             file_name = file_inf.get_file_name()
             line = file_inf.get_line()
-            print col['warning'] + "[Source file: %s : %s] " % (file_name, line) + col['endc']
+            function_name = file_inf.get_function()
+            address = file_inf.get_address()
+
+            # Dont show if dont have line number information
+            reference = ""
+            if line != "0":
+                reference = "Reference: %s:%s | " % (file_name, line)
+            function = "Function: %s" % (function_name)
+            ip = "Instruction Pointer: %s" % (address)
+
+            print col['warning'] + "[%s%s | %s] " % (reference, function,
+                                                      ip) + col['endc']
         print "-------------------------------------------------------"
         print ""
 
@@ -159,17 +173,30 @@ def save_sca_txt(problems_dict, file_name):
             output_file.write("SCA : No reports found.")
         else:
             for key in problems_dict:
+                problem = problems_dict.get(key)
                 output_file.write("[Problem: {}]\n".format(
-                    problems_dict.get(key).get_name_problem()))
+                    problem.get_name_problem()))
                 output_file.write("[Description: {}]\n".format(
-                    problems_dict.get(key).get_problem_description()))
+                    problem.get_problem_description()))
+
                 output_file.write("[Solution:\n")
-                output_file.write(problems_dict.get(key).get_solution()) + "]"
-                output_file.write("\n\n")
+                output_file.write(problem.get_solution() + "\n]")
+                output_file.write("\n")
                 for file_inf in problems_dict[key].get_file_info_list():
-                    file_name_src = file_inf.get_file_name()
+                    file_name = file_inf.get_file_name()
                     line = file_inf.get_line()
-                    output_file.write("[Source file: %s : %s] \n" % (file_name_src, line))
+                    function_name = file_inf.get_function()
+                    address = file_inf.get_address()
+
+                    # Dont show if dont have line number information
+                    reference = ""
+                    if line != "0":
+                        reference = "Reference: %s:%s | " % (file_name, line)
+                    function = "Function: %s" % (function_name)
+                    ip = "Instruction Pointer: %s" % (address)
+
+                    output_file.write("[%s%s | %s] \n" % (reference, function,
+                                                           ip))
                 output_file.write("\n-------------------------------------------------------")
                 output_file.write("\n")
 
@@ -202,12 +229,15 @@ def set_group_events(operations, events):
         for event in events:
             if event.get_name() == oper.get_name().upper():
                 prb_name = event.get_name()
+
                 file_name = oper.get_site().get('file') or ''
                 file_path = oper.get_site().get('dir') + "/" + file_name
-                line = linecache.getline(file_path, int(oper.get_site().get('line')))
-                file_info = FileInfo(file_path, line.strip(), oper.get_site().get('line'))
+                function = oper.get_site().get('function')
+                line = oper.get_site().get('line')
+                address = oper.get_site().get('address')
+                file_info = FileInfo(file_path, function, line, address)
 
-                if problems_dict.get(prb_name, None) != None:
+                if problems_dict.get(prb_name, None) is not None:
                     problems_dict.get(prb_name).get_file_info_list().append(file_info)
                 else:
                     problem = Problem(prb_name, event.get_problem(), event.get_solution())

@@ -67,7 +67,9 @@ class JournalXml(object):
         for oper in root.iter('operation'):
             site_dict = {'line':  oper.find('site').find('line').text,
                          'dir': oper.find('site').find('dir').text,
-                         'file': oper.find('site').find('file').text, }
+                         'file': oper.find('site').find('file').text,
+                         'function': oper.find('site').find('fn').text,
+                         'address': oper.find('site').find('ip').text}
             operation = Operation(oper.attrib['name'], oper.find('problem').text,
                                   oper.find('solution').text, site_dict)
             self.operation_list.append(operation)
