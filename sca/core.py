@@ -169,36 +169,33 @@ def print_sca(problems_dict, color_flag):
 def save_sca_txt(problems_dict, file_name):
     ''' This function saves events info in a txt file'''
     with open(file_name, 'w') as output_file:
-        if not bool(problems_dict):
-            output_file.write("SCA : No reports found.")
-        else:
-            for key in problems_dict:
-                problem = problems_dict.get(key)
-                output_file.write("[Problem: {}]\n".format(
-                    problem.get_name_problem()))
-                output_file.write("[Description: {}]\n".format(
-                    problem.get_problem_description()))
+        for key in problems_dict:
+            problem = problems_dict.get(key)
+            output_file.write("[Problem: {}]\n".format(
+                problem.get_name_problem()))
+            output_file.write("[Description: {}]\n".format(
+                problem.get_problem_description()))
 
-                output_file.write("[Solution:\n")
-                output_file.write(problem.get_solution() + "\n]")
-                output_file.write("\n")
-                for file_inf in problems_dict[key].get_file_info_list():
-                    file_name = file_inf.get_file_name()
-                    line = file_inf.get_line()
-                    function_name = file_inf.get_function()
-                    address = file_inf.get_address()
+            output_file.write("[Solution:\n")
+            output_file.write(problem.get_solution() + "\n]")
+            output_file.write("\n")
+            for file_inf in problems_dict[key].get_file_info_list():
+                file_name = file_inf.get_file_name()
+                line = file_inf.get_line()
+                function_name = file_inf.get_function()
+                address = file_inf.get_address()
 
-                    # Dont show if dont have line number information
-                    reference = ""
-                    if line != "0":
-                        reference = "Reference: %s:%s | " % (file_name, line)
-                    function = "Function: %s" % (function_name)
-                    ip = "Instruction Pointer: %s" % (address)
+                # Dont show if dont have line number information
+                reference = ""
+                if line != "0":
+                    reference = "Reference: %s:%s | " % (file_name, line)
+                function = "Function: %s" % (function_name)
+                ip_address = "Instruction Pointer: %s" % (address)
 
-                    output_file.write("[%s%s | %s] \n" % (reference, function,
-                                                           ip))
-                output_file.write("\n-------------------------------------------------------")
-                output_file.write("\n")
+                output_file.write("[%s%s | %s] \n" % (reference, function,
+                                                      ip_address))
+            output_file.write("\n-------------------------------------------------------")
+            output_file.write("\n")
 
 
 def save_sca_json(problems_dict, file_name):

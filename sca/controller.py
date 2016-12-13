@@ -53,6 +53,10 @@ def run_sca(binary_path, binary_args, sca_options):
         jour_file = binary_path + "-jour.xml"
         group_problems = core.run_xml_match(jour_file)
 
+        if not group_problems:
+            sys.stdout.write("\nSCA report: No reports found.")
+            sys.exit(0)
+
         if sca_options.get_file_type_opt() != None:
             ok_val = core.save_sca(group_problems, sca_options.get_file_name(),
                                    sca_options.get_file_type_opt())
