@@ -1,0 +1,1557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<journal xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="journal.xsd">
+	<preamble>
+		<line>fdprpro (FDPR) Version 5.6.3.0 for Linux/POWER LE</line>
+	</preamble>
+	<args>
+		<exe>/opt/ibm/fdprpro/bin/fdprpro</exe>
+		<arg>-a opt</arg>
+		<arg>./php</arg>
+		<arg>-j ./php-jour.xml</arg>
+		<arg>-f /home/iplsdk/.fdpr/php.prof</arg>
+		<arg>-o ./php-jour.fdpr</arg>
+		<arg>-O3</arg>
+		<arg>-w 2</arg>
+	</args>
+	<input>
+		<name>./php</name>
+		<creationDate>2016-12-13</creationDate>
+		<size>57245848</size>
+	</input>
+	<profile>
+		<file>
+			<name>/home/iplsdk/.fdpr/php.prof</name>
+			<creationDate>2016-12-13</creationDate>
+			<size>15709748</size>
+		</file>
+		<totalInstStaticCount>75590</totalInstStaticCount>
+		<totalInstExecCount>11250464768</totalInstExecCount>
+		<averageBBExecCount>170513.88</averageBBExecCount>
+	</profile>
+	<operationLog>
+		<operation name="Toc store in loop optimization">
+			<problem>high penalty for toc store in loop operation</problem>
+			<solution>relocate toc store from loop to before loop</solution>
+			<site>
+				<ip>103fcfa4</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_vm_execute.h</file>
+				<fn>execute_ex</fn>
+				<line>414</line>
+				<xcount>155280432</xcount>
+			</site>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030abac</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>284</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030abbc</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>284</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030ae60</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>294</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030ae70</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>297</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b0e4</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>302</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b0f4</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>304</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b17c</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>306</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b18c</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>304</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b224</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>306</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b230</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>306</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b2e4</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>310</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b2f0</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>310</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b474</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>313</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b484</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>314</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b4ec</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>315</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b4f8</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>317</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b57c</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>318</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b58c</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>316</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b84c</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>323</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b858</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>323</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b938</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>325</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b948</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>325</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030b99c</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>326</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030b9ac</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>327</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030baa8</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>333</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030bab0</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>332</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030bb08</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>335</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030bb10</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>332</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Fix Load-hit-store">
+			<problem>Load instruction is rejected when it hits previous store to the same address before store reaches cache</problem>
+			<solution>Compiler: separate load from store by a inserting NOPs in between (or use a special NOP)</solution>
+			<site>
+				<ip>1030bdb0</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>345</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="load position">
+				<site>
+					<ip>1030bdb8</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>SHA1Transform</fn>
+					<line>345</line>
+					<xcount>130000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>102d274c</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>math.c</file>
+				<fn>_php_math_basetozval</fn>
+				<line>890</line>
+				<xcount>288000</xcount>
+			</site>
+			<param name="next basic block">
+				<site>
+					<ip>102d27f0</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>math.c</file>
+					<fn>_php_math_basetozval</fn>
+					<line>877</line>
+					<xcount>218844</xcount>
+				</site>
+			</param>
+			<param name="next basic block">
+				<site>
+					<ip>102d2730</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>math.c</file>
+					<fn>_php_math_basetozval</fn>
+					<line>878</line>
+					<xcount>288000</xcount>
+				</site>
+			</param>
+			<param name="next basic block">
+				<site>
+					<ip>102d2748</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>math.c</file>
+					<fn>_php_math_basetozval</fn>
+					<line>878</line>
+					<xcount>288000</xcount>
+				</site>
+			</param>
+			<param name="Loop size">
+				<ival>44</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>102d4840</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>md5.c</file>
+				<fn>make_digest_ex</fn>
+				<line>38</line>
+				<xcount>2340000</xcount>
+			</site>
+			<param name="Loop size">
+				<ival>40</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>102e0d40</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>php_string_toupper</fn>
+				<line>1422</line>
+				<xcount>2795000</xcount>
+			</site>
+			<param name="Loop size">
+				<ival>32</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>102e1000</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>php_string_tolower</fn>
+				<line>1492</line>
+				<xcount>195000</xcount>
+			</site>
+			<param name="next basic block">
+				<site>
+					<ip>102e1008</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>string.c</file>
+					<fn>php_string_tolower</fn>
+					<line>1476</line>
+					<xcount>260000</xcount>
+				</site>
+			</param>
+			<param name="Loop size">
+				<ival>28</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>102e10a0</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>php_string_tolower</fn>
+				<line>1485</line>
+				<xcount>2600000</xcount>
+			</site>
+			<param name="Loop size">
+				<ival>32</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>102e8300</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>zif_strrev</fn>
+				<line>3454</line>
+				<xcount>2795000</xcount>
+			</site>
+			<param name="Loop size">
+				<ival>12</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>102e9304</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>php_addslashes</fn>
+				<line>3803</line>
+				<xcount>2795000</xcount>
+			</site>
+			<param name="next basic block">
+				<site>
+					<ip>102e930c</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>string.c</file>
+					<fn>php_addslashes</fn>
+					<line>3796</line>
+					<xcount>2795000</xcount>
+				</site>
+			</param>
+			<param name="next basic block">
+				<site>
+					<ip>102e9328</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>string.c</file>
+					<fn>php_addslashes</fn>
+					<line>3796</line>
+					<xcount>2795000</xcount>
+				</site>
+			</param>
+			<param name="next basic block">
+				<site>
+					<ip>102e932c</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>string.c</file>
+					<fn>php_addslashes</fn>
+					<line>3796</line>
+					<xcount>2275000</xcount>
+				</site>
+			</param>
+			<param name="next basic block">
+				<site>
+					<ip>102e9330</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>string.c</file>
+					<fn>php_addslashes</fn>
+					<line>3796</line>
+					<xcount>2275000</xcount>
+				</site>
+			</param>
+			<param name="Loop size">
+				<ival>48</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>1030a640</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>SHA1Transform</fn>
+				<line>395</line>
+				<xcount>1040000</xcount>
+			</site>
+			<param name="Loop size">
+				<ival>52</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>1030c2f0</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>PHP_SHA1Final</fn>
+				<line>375</line>
+				<xcount>325000</xcount>
+			</site>
+			<param name="Loop size">
+				<ival>48</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Unroll loop">
+			<problem>High branch penalty in a small loop</problem>
+			<solution>Compiler: the loop is unrolled N times so it fits within a cache line</solution>
+			<site>
+				<ip>1039ef10</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_operators.h</file>
+				<fn>zend_long_to_str</fn>
+				<line>801</line>
+				<xcount>364445</xcount>
+			</site>
+			<param name="Loop size">
+				<ival>44</ival>
+			</param>
+			<param name="Number of unrolls">
+				<ival>2</ival>
+			</param>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>102d28a4</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>math.c</file>
+				<fn>_php_math_basetozval</fn>
+				<line>877</line>
+				<xcount>110312</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>102db808</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>soundex.c</file>
+				<fn>zif_soundex</fn>
+				<line>72</line>
+				<xcount>1300000</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>103a8400</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_string.h</file>
+				<fn>_zval_dtor_func_for_ptr</fn>
+				<line>263</line>
+				<xcount>1310184</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>103ad78c</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_API.c</file>
+				<fn>zend_parse_arg_double_slow</fn>
+				<line>446</line>
+				<xcount>1260000</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>103b5be0</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_API.c</file>
+				<fn>zend_parse_va_args</fn>
+				<line>815</line>
+				<xcount>1830042</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>103bf22c</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_hash.c</file>
+				<fn>_zend_hash_next_index_insert</fn>
+				<line>135</line>
+				<xcount>3380005</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>103c16bc</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_hash.c</file>
+				<fn>zend_array_destroy</fn>
+				<line>1359</line>
+				<xcount>3380010</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>103c52d0</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_hash.c</file>
+				<fn>zend_hash_find</fn>
+				<line>496</line>
+				<xcount>1210286</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>1040804c</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_execute.h</file>
+				<fn>ZEND_ASSIGN_SPEC_CV_VAR_HANDLER</fn>
+				<line>103</line>
+				<xcount>1170003</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>10461328</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_execute.h</file>
+				<fn>ZEND_DO_FCALL_SPEC_HANDLER</fn>
+				<line>240</line>
+				<xcount>3380000</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>10461364</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_execute.h</file>
+				<fn>ZEND_DO_FCALL_SPEC_HANDLER</fn>
+				<line>250</line>
+				<xcount>140000</xcount>
+			</site>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>10461654</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_vm_execute.h</file>
+				<fn>ZEND_DO_FCALL_SPEC_HANDLER</fn>
+				<line>861</line>
+				<xcount>3380000</xcount>
+			</site>
+		</operation>
+		<operation name="Move hot code to cold area">
+			<problem>Hot code is loop-invariant</problem>
+			<solution>Compiler: move constant code oustide the loop</solution>
+			<site>
+				<ip>103b5b50</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_API.c</file>
+				<fn>zend_parse_va_args</fn>
+				<line>918</line>
+				<xcount>1050017</xcount>
+			</site>
+			<param name="target position">
+				<site>
+					<ip>103b5cb0</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_API.c</file>
+					<fn>zend_parse_va_args</fn>
+					<line>906</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102d4b58</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>md5.c</file>
+				<fn>PHP_MD5Final</fn>
+				<line>372</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>102d3de0</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>md5.c</file>
+					<fn>body</fn>
+					<line>191</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>130000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102d4cec</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>md5.c</file>
+				<fn>php_if_md5</fn>
+				<line>61</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>102d4928</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>md5.c</file>
+					<fn>PHP_MD5Update</fn>
+					<line>309</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>2.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>260000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102d4cfc</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>md5.c</file>
+				<fn>php_if_md5</fn>
+				<line>62</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>102d4a98</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>md5.c</file>
+					<fn>PHP_MD5Final</fn>
+					<line>344</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>2.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>260000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102e0e3c</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>zif_strtoupper</fn>
+				<line>1445</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>102e0c48</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>string.c</file>
+					<fn>php_string_toupper</fn>
+					<line>1406</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>130000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102e25ac</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>zif_strtolower</fn>
+				<line>1508</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>102e0fa8</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>string.c</file>
+					<fn>php_string_tolower</fn>
+					<line>1469</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>130000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102eb004</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>zif_strip_tags</fn>
+				<line>4386</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>102ea3e8</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>string.c</file>
+					<fn>php_strip_tags_ex</fn>
+					<line>4607</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>5.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>650000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>1030c3ec</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>zif_sha1</fn>
+				<line>49</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1030c0c8</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>PHP_SHA1Update</fn>
+					<line>180</line>
+					<xcount>260000</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>2.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>260000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>1030c3fc</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>sha1.c</file>
+				<fn>zif_sha1</fn>
+				<line>50</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1030c248</ip>
+					<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+					<file>sha1.c</file>
+					<fn>PHP_SHA1Final</fn>
+					<line>220</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>2.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>260000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>103bf22c</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_hash.c</file>
+				<fn>_zend_hash_next_index_insert</fn>
+				<line>135</line>
+				<xcount>3379115</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1037a498</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_emalloc</fn>
+					<line>2450</line>
+					<xcount>1442247</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>2.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>6758230.50</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>1039ef50</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_string.h</file>
+				<fn>zend_long_to_str</fn>
+				<line>121</line>
+				<xcount>140000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1037a498</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_emalloc</fn>
+					<line>2450</line>
+					<xcount>1302247</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>140000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>1037ac64</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_alloc.c</file>
+				<fn>_estrndup</fn>
+				<line>2571</line>
+				<xcount>130006</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1037a498</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_emalloc</fn>
+					<line>2450</line>
+					<xcount>1172241</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>130006.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102eafa4</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_string.h</file>
+				<fn>zif_strip_tags</fn>
+				<line>121</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1037a498</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_emalloc</fn>
+					<line>2450</line>
+					<xcount>1042241</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>130000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102e1024</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_string.h</file>
+				<fn>php_string_tolower</fn>
+				<line>121</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1037a498</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_emalloc</fn>
+					<line>2450</line>
+					<xcount>912241</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>130000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102e0cc4</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_string.h</file>
+				<fn>php_string_toupper</fn>
+				<line>121</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1037a498</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_emalloc</fn>
+					<line>2450</line>
+					<xcount>782241</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>130000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102db73c</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_string.h</file>
+				<fn>zif_soundex</fn>
+				<line>121</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1037a498</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_emalloc</fn>
+					<line>2450</line>
+					<xcount>652241</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>2.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>260000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102ea474</ip>
+				<dir>/home/iplsdk/projects/php-src/ext/standard</dir>
+				<file>string.c</file>
+				<fn>php_strip_tags_ex</fn>
+				<line>4619</line>
+				<xcount>130000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1037ac38</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_estrndup</fn>
+					<line>2565</line>
+					<xcount>6</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>3.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>390000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>102d0544</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_operators.h</file>
+				<fn>zif_floor</fn>
+				<line>263</line>
+				<xcount>140000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1039cb78</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_operators.c</file>
+					<fn>_zval_get_double_func</fn>
+					<line>780</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>2.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>280000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>1039f334</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_operators.c</file>
+				<fn>_convert_to_string</fn>
+				<line>544</line>
+				<xcount>140000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>1039eec8</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_operators.c</file>
+					<fn>zend_long_to_str</fn>
+					<line>2811</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>4.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>560000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>103b5bb8</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_API.c</file>
+				<fn>zend_parse_va_args</fn>
+				<line>925</line>
+				<xcount>1050029</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>103b4c58</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_API.c</file>
+					<fn>zend_parse_arg</fn>
+					<line>748</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>1050029.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>10446118</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_vm_execute.h</file>
+				<fn>ZEND_ADD_ARRAY_ELEMENT_SPEC_CV_UNUSED_HANDLER</fn>
+				<line>35039</line>
+				<xcount>3380000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>103bef18</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_hash.c</file>
+					<fn>_zend_hash_next_index_insert</fn>
+					<line>863</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>1.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>3380000.00</fval>
+			</param>
+		</operation>
+		<operation name="Killed Registers">
+			<problem>High penalty for stores and restores of registers that are killed (overwritten) after frequently executed function calls</problem>
+			<solution>Eliminate stores and restores of registers that are killed (overwritten) after frequently executed function calls</solution>
+			<site>
+				<ip>1046fcec</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_vm_execute.h</file>
+				<fn>ZEND_INIT_USER_CALL_SPEC_CONST_CV_HANDLER</fn>
+				<line>9573</line>
+				<xcount>3380000</xcount>
+			</site>
+			<param name="called func">
+				<site>
+					<ip>103b4058</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_API.c</file>
+					<fn>zend_is_callable_ex</fn>
+					<line>3181</line>
+					<xcount>0</xcount>
+				</site>
+			</param>
+			<param name="num of saved regs">
+				<fval>2.00</fval>
+			</param>
+			<param name="saved executions">
+				<fval>6760000.00</fval>
+			</param>
+		</operation>
+		<operation name="Inline function">
+			<problem>High call overhead of a hot small function</problem>
+			<solution>Compiler: inline callee into caller - replace call to callee with its body</solution>
+			<site>
+				<ip>103c16c8</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_hash.c</file>
+				<fn>zend_array_destroy</fn>
+				<line>1361</line>
+				<xcount>3380010</xcount>
+			</site>
+			<param name="callee">
+				<site>
+					<ip>10379458</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_efree_56</fn>
+					<line>2422</line>
+					<xcount>3380010</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Inline function">
+			<problem>High call overhead of a hot small function</problem>
+			<solution>Compiler: inline callee into caller - replace call to callee with its body</solution>
+			<site>
+				<ip>103ac2bc</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_hash.h</file>
+				<fn>zend_is_callable_check_func.isra.0</fn>
+				<line>694</line>
+				<xcount>3380000</xcount>
+			</site>
+			<param name="callee">
+				<site>
+					<ip>103c5178</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_hash.c</file>
+					<fn>zend_hash_find</fn>
+					<line>1982</line>
+					<xcount>3380000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Inline function">
+			<problem>High call overhead of a hot small function</problem>
+			<solution>Compiler: inline callee into caller - replace call to callee with its body</solution>
+			<site>
+				<ip>103a83a0</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_variables.c</file>
+				<fn>_zval_dtor_func_for_ptr</fn>
+				<line>95</line>
+				<xcount>3380014</xcount>
+			</site>
+			<param name="callee">
+				<site>
+					<ip>103c1578</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_hash.c</file>
+					<fn>zend_array_destroy</fn>
+					<line>1312</line>
+					<xcount>3380014</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Inline function">
+			<problem>High call overhead of a hot small function</problem>
+			<solution>Compiler: inline callee into caller - replace call to callee with its body</solution>
+			<site>
+				<ip>10446300</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_vm_execute.h</file>
+				<fn>ZEND_INIT_ARRAY_SPEC_CV_UNUSED_HANDLER</fn>
+				<line>35060</line>
+				<xcount>3380000</xcount>
+			</site>
+			<param name="callee">
+				<site>
+					<ip>103b9c98</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_hash.c</file>
+					<fn>_zend_hash_init</fn>
+					<line>177</line>
+					<xcount>3380000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Inline function">
+			<problem>High call overhead of a hot small function</problem>
+			<solution>Compiler: inline callee into caller - replace call to callee with its body</solution>
+			<site>
+				<ip>104462dc</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_vm_execute.h</file>
+				<fn>ZEND_INIT_ARRAY_SPEC_CV_UNUSED_HANDLER</fn>
+				<line>35059</line>
+				<xcount>3380000</xcount>
+			</site>
+			<param name="callee">
+				<site>
+					<ip>10377d48</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_alloc.c</file>
+					<fn>_emalloc_56</fn>
+					<line>2380</line>
+					<xcount>3380000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Inline function">
+			<problem>High call overhead of a hot small function</problem>
+			<solution>Compiler: inline callee into caller - replace call to callee with its body</solution>
+			<site>
+				<ip>103ad78c</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_API.c</file>
+				<fn>zend_parse_arg_double_slow</fn>
+				<line>446</line>
+				<xcount>1260000</xcount>
+			</site>
+			<param name="callee">
+				<site>
+					<ip>103ad678</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_types.h</file>
+					<fn>zend_parse_arg_double_weak</fn>
+					<line>327</line>
+					<xcount>1260000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Inline function">
+			<problem>High call overhead of a hot small function</problem>
+			<solution>Compiler: inline callee into caller - replace call to callee with its body</solution>
+			<site>
+				<ip>103b4474</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_API.c</file>
+				<fn>zend_is_callable_ex</fn>
+				<line>3232</line>
+				<xcount>3380000</xcount>
+			</site>
+			<param name="callee">
+				<site>
+					<ip>103abb88</ip>
+					<dir>/home/iplsdk/projects/php-src/Zend</dir>
+					<file>zend_API.c</file>
+					<fn>zend_is_callable_check_func.isra.0</fn>
+					<line>2909</line>
+					<xcount>3380000</xcount>
+				</site>
+			</param>
+		</operation>
+		<operation name="Branch Folding">
+			<problem>High penalty for  branch to branch instructions</problem>
+			<solution>Eliminate branch to branch instructions</solution>
+			<site>
+				<ip>103ad78c</ip>
+				<dir>/home/iplsdk/projects/php-src/Zend</dir>
+				<file>zend_API.c</file>
+				<fn>zend_parse_arg_double_slow</fn>
+				<line>446</line>
+				<xcount>1260000</xcount>
+			</site>
+		</operation>
+	</operationLog>
+</journal>
+<!--
+-->

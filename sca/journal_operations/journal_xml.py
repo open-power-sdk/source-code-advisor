@@ -57,7 +57,9 @@ class Operation(object):
 
 class JournalXml(object):
     '''Class to parse operation that comes from fdpr'''
-    operation_list = []
+
+    def __init__(self):
+        self.operation_list = []
 
     def load_xml(self, file_name):
         '''Function to load Operation from journal file'''
