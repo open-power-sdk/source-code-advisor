@@ -138,8 +138,8 @@ def main(argv=None):
         # Process arguments
         args, application_args = parser.parse_known_args()
         binary_path = args.application_path.pop(0)
-        binary_args = ' ' + ' '.join(map(str, args.application_path))
-        binary_args = binary_args + ' ' + ' '.join(map(str, application_args))
+        binary_args = ' '.join(("'" + i + "'") for i in args.application_path +
+                               application_args)
         sca_options = ScaOptions(args.fdprpro_args)
         sca_options.set_color_opt(args.color)
 
