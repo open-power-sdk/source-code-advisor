@@ -131,15 +131,21 @@ def main(argv=None):
                             default=None,
                             nargs='?')
         parser.add_argument(dest="application_path",
+                            metavar="application_path [APPLICATION_ARGS]",
                             help="path to the application binary and its arguments",
                             default=None,
-                            nargs='+')
+                            nargs='?')
 
         # Process arguments
         args, application_args = parser.parse_known_args()
-        binary_path = args.application_path.pop(0)
-        binary_args = ' '.join(("'" + i + "'") for i in args.application_path +
-                               application_args)
+
+        if not args.application_path:
+            parser.print_usage()
+            sys.stderr.write("Error: missing application path\n")
+            exit(1)
+
+        binary_path = args.application_path
+        binary_args = ' '.join(("'" + i + "'") for i in application_args)
         sca_options = ScaOptions(args.fdprpro_args)
         sca_options.set_color_opt(args.color)
 
