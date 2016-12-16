@@ -24,6 +24,7 @@ limitations under the License.
 import subprocess
 import os
 import json
+from colorclass import Color
 from sca_events import ScaXml
 from journal_operations import JournalXml
 
@@ -106,47 +107,40 @@ def cmdexists(command):
     return subp == 0
 
 
-def get_sca_color(flag):
-    '''Set colors values'''
-    col_dict = {}
-    col_dict['header'] = ''
-    col_dict['okblue'] = ''
-    col_dict['okgreen'] = ''
-    col_dict['warning'] = ''
-    col_dict['fail'] = ''
-    col_dict['endc'] = ''
-    col_dict['bold'] = ''
-    col_dict['underline'] = ''
+def print_output(msg_type, flag, msg):
+    """ SCA print function, enables color usage """
+    color_open = ''
+    color_close = ''
 
     if flag:
-        col_dict['header'] = '\033[95m'
-        col_dict['okblue'] = '\033[94m'
-        col_dict['okgreen'] = '\033[92m'
-        col_dict['warning'] = '\033[93m'
-        col_dict['fail'] = '\033[91m'
-        col_dict['endc'] = '\033[0m'
-        col_dict['bold'] = '\033[1m'
-        col_dict['underline'] = '\033[4m'
+        if msg_type == 'ERROR':
+            color_open = "{hired}"
+            color_close = "{/hired}"
 
-    return col_dict
+        if msg_type == 'INFO':
+            color_open = "{higreen}"
+            color_close = "{/higreen}"
+
+        if msg_type == 'WARNING':
+            color_open = "{hiyellow}"
+            color_close = "{/hiyellow}"
+
+    print Color(color_open + msg + color_close)
 
 
 def print_sca(problems_dict, color_flag):
     ''' This function shows events info '''
-    col = get_sca_color(color_flag)
-    print col['header']
-    print col['endc']
-    if not bool(problems_dict):
-        print col['warning'] + "SCA : No reports found." + col['endc']
-        return
-
     for key in problems_dict:
         problem = problems_dict.get(key)
-        print col['fail'] + "[Problem: {}]".format(problem.get_name_problem())
-        print "[Description: {}]".format(
-            problem.get_problem_description()) + col['endc'] + col['okgreen']
-        print "[Solution:"
-        print problem.get_solution() + "\n]"
+        msg_problem = "\n[Problem: {}]".format(problem.get_name_problem())
+        print_output('ERROR', color_flag, msg_problem)
+
+        msg_descript = "[Description: {}]".format(problem.get_problem_description())
+        print_output('ERROR', color_flag, msg_descript)
+
+        print_output('INFO', color_flag, "[Solution:")
+        print_output('INFO', color_flag, problem.get_solution())
+
         for file_inf in problems_dict[key].get_file_info_list():
             file_name = file_inf.get_file_name()
             line = file_inf.get_line()
@@ -158,12 +152,11 @@ def print_sca(problems_dict, color_flag):
             if line != "0":
                 reference = "Reference: %s:%s | " % (file_name, line)
             function = "Function: %s" % (function_name)
-            ip = "Instruction Pointer: %s" % (address)
+            ip_add = "Instruction Pointer: %s" % (address)
 
-            print col['warning'] + "[%s%s | %s] " % (reference, function,
-                                                      ip) + col['endc']
+            msg_ref = "[%s%s | %s] " % (reference, function, ip_add)
+            print_output('WARNING', color_flag, msg_ref)
         print "-------------------------------------------------------"
-        print ""
 
 
 def save_sca_txt(problems_dict, file_name):
