@@ -24,9 +24,10 @@ limitations under the License.
 import sys
 import os
 import time
+import argparse
 
 from argparse import ArgumentParser
-from argparse import RawDescriptionHelpFormatter
+from argparse import RawTextHelpFormatter
 import pkg_resources
 import controller
 
@@ -112,40 +113,42 @@ def main(argv=None):
 
     try:
         parser = ArgumentParser(description=program_shortdesc,
-                                formatter_class=RawDescriptionHelpFormatter)
+                                formatter_class=RawTextHelpFormatter)
         parser.add_argument('--version', '-V', action='version',
                             version=program_version_message)
         parser.add_argument('--color', dest="color", action='store_true',
                             help="displays results in color")
         parser.add_argument("--fdprpro-args", dest="fdprpro_args", type=str,
-                            help="""fdprpro options, e.g.: --fdprpro-args='-O3 -v 3'.
-                            To get all available options for fdprpro issue:
-                            /opt/ibm/fdprpro/bin/fdprpro --help""",
+                            help="fdprpro options \n"
+                            "e.g.: --fdprpro-args='-O3 -v 3'\n"
+                            "To get all available options for fdprpro issue:\n"
+                            "/opt/ibm/fdprpro/bin/fdprpro --help",
                             default='', nargs='?')
         parser.add_argument("--output-type", dest="file_type", type=str,
-                            help="The output of the report file. e.g.:--output-type=txt",
+                            help="The output of the report file\n"
+                            "e.g.:--output-type=txt",
                             default=None, choices=['txt', 'json'],
                             nargs='?')
         parser.add_argument("--output-name", dest="file_name", type=str,
-                            help="The name of the report file. e.g.: --output-name=file_name",
+                            help="The name of the report file\n"
+                            "e.g.: --output-name=file_name",
                             default=None,
                             nargs='?')
-        parser.add_argument(dest="application_path",
-                            metavar="application_path [APPLICATION_ARGS]",
-                            help="path to the application binary and its arguments",
+        parser.add_argument(dest="cmd",
+                            metavar="COMMAND",
+                            help="the application and its arguments\n"
+                            "e.g.: sca <command>",
+                            nargs=1)
+        parser.add_argument(dest="cmd_args",
                             default=None,
-                            nargs='?')
+                            nargs=argparse.REMAINDER,
+                            help=argparse.SUPPRESS)
 
         # Process arguments
-        args, application_args = parser.parse_known_args()
+        args = parser.parse_args()
+        binary_path = args.cmd[0]
+        binary_args = ' '.join(("'" + i + "'") for i in args.cmd_args)
 
-        if not args.application_path:
-            parser.print_usage()
-            sys.stderr.write("Error: missing application path\n")
-            exit(1)
-
-        binary_path = args.application_path
-        binary_args = ' '.join(("'" + i + "'") for i in application_args)
         sca_options = ScaOptions(args.fdprpro_args)
         sca_options.set_color_opt(args.color)
 
