@@ -1,4 +1,3 @@
-include LICENSE
 include sca/sca_events/sca_events.xml
 include requirements.txt
 recursive-include data *

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Copyright (C) 2016 IBM Corporation
+Copyright (C) 2016, 2017 IBM Corporation
 
 Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
@@ -17,7 +17,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
     Contributors:
-    * Rafael Sene <rpsene@br.ibm.com>
+        * Rafael Sene <rpsene@br.ibm.com>
+        * Daniel Kreling <dbkreling@br.ibm.com>
+        * Roberto Oliveira <rdutra@br.ibm.com>
+        * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
 """
 
 from setuptools import setup, find_packages
@@ -43,7 +46,6 @@ dbkreling@br.ibm.com, merjildo@br.ibm.com',
     license='Apache Software License 2.0',
     install_requires=REQUIREMENTS,
     packages=find_packages(exclude=("tests",)),
-    data_files=[("", ["LICENSE"])],
     include_package_data=True,
     test_suite='nose.collector',
     tests_require=['nose'],
