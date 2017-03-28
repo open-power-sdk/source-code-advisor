@@ -24,6 +24,8 @@ optimization:
 
 * Perform feedback-directed optimization of an executable program (or a shared library).
 
+For more information about SCA usage, see sca --help
+
 
 Supported Architecture and Operating Systems
 =========================
