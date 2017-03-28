@@ -19,37 +19,43 @@ Because SCA uses information gathered by FDPR, knowledge of this tool is importa
 
 The combination of SCA and FDPR provide you with two major approaches to performance analysis and
 optimization:
-        * Find and visualize performance problems in the source program using feedback-directed analysis.
-        * Perform feedback-directed optimization of an executable program (or a shared library).
 
---------------------------------------------------------------------------------------------------------
+* Find and visualize performance problems in the source program using feedback-directed analysis.
 
-Usage: sca [-h] [--version] [--color] [--fdprpro-args [FDPRPRO_ARGS]]
-           [--output-type [{txt,json}]] [--output-name [FILE_NAME]]
-           application_path [application_path ...]
+* Perform feedback-directed optimization of an executable program (or a shared library).
 
 
-positional arguments:
-  application_path      path to the application binary and its arguments
+Supported Architecture and Operating Systems
+=========================
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --version, -V         show program's version number and exit
-  --color               displays results in color
-  --fdprpro-args [FDPRPRO_ARGS]
-                        fdprpro options, e.g.: --fdprpro-args='-O3 -v 3'. To
-                        get all available options for fdprpro issue:
-                        /opt/ibm/fdprpro/bin/fdprpro --help
-  --output-type [{txt,json}]
-                        The output of the report file. e.g.:--output-type=txt
-  --output-name [FILE_NAME]
-                        The name of the report file. e.g.: --output-
-                        name=file_name
+* ppc64le: Ubuntu 16.04, CentOS7, RHEL 7.3, Fedora 25.
 
 
-Exit Status
-    SCA may return one of several error codes if it encounters problems.
+Building and Testing
+=========================
 
-    0 No problems occurred.
-    1 Generic error code.
-    2 Some dependency tool is missing.
+Requirements: python-pip, python-pylint, python-virtualenv, python-docsutil, fdprpro and fdprwrap
+
+Testing: ./dev tests
+
+Build: ./dev release
+
+Build and install: ./dev install
+
+
+FDPRPro and FDPRWrap
+=========================
+
+Both are proprietary tools by IBM which are freely available at https://developer.ibm.com/linuxonpower/sdk-packages/. Ensure you have both tools installed in order to execute Source Code Advisor.
+
+
+Integrators
+=========================
+
+If you intend to integrate SCA within your development environemt you should be aware of the following error codes:
+
+0: no problems occurred
+
+1: generic error code.
+
+2: some dependency tool is missing
