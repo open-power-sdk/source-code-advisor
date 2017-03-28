@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Copyright (C) 2016 IBM Corporation
+Copyright (C) 2017 IBM Corporation
 
 Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import os
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 LOCAL_XML_SCA = DIR_PATH + "/sca_events.xml"
+
 
 class Event(object):
     ''' Class to hold SCA events'''
@@ -53,9 +54,11 @@ class Event(object):
         '''Function to get marker'''
         return self.marker_id
 
+
 class ScaXml(object):
     ''' Class to parse SCA events'''
     event_list = []
+
     def __init__(self):
         self.load_xml(LOCAL_XML_SCA)
 
