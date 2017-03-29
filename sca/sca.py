@@ -109,7 +109,13 @@ def main(argv=None):
     SCA will non-destructively instrument the executable and run the
     instrumented version, collecting performance data. Upon completion,
     a report will be presented listing any detected issues with possible
-    remedies. '''
+    remedies.
+
+    IMPORTANT: To use SCA the binary must be linked with relocation
+    information preserved, which is not the default linker behavior.
+    Add "-q" or "--preserve-relocs" to the "ld" command or "-Wl,-q"
+    or "-Wl,--preserve-relocs" if the compiler is used to link."
+    '''
 
     try:
         parser = ArgumentParser(description=program_shortdesc,
@@ -117,27 +123,27 @@ def main(argv=None):
         parser.add_argument('--version', '-V', action='version',
                             version=program_version_message)
         parser.add_argument('--color', dest="color", action='store_true',
-                            help="displays results in color")
+                            help="displays results in color\n\n")
         parser.add_argument("--fdprpro-args", dest="fdprpro_args", type=str,
                             help="fdprpro options \n"
                             "e.g.: --fdprpro-args='-O3 -v 3'\n"
                             "To get all available options for fdprpro issue:\n"
-                            "/opt/ibm/fdprpro/bin/fdprpro --help",
+                            "/opt/ibm/fdprpro/bin/fdprpro --help\n\n",
                             default='', nargs='?')
         parser.add_argument("--output-type", dest="file_type", type=str,
                             help="The output of the report file\n"
-                            "e.g.:--output-type=txt",
+                            "e.g.:--output-type=txt\n\n",
                             default=None, choices=['txt', 'json'],
                             nargs='?')
         parser.add_argument("--output-name", dest="file_name", type=str,
                             help="The name of the report file\n"
-                            "e.g.: --output-name=file_name",
+                            "e.g.: --output-name=file_name\n\n",
                             default=None,
                             nargs='?')
         parser.add_argument(dest="cmd",
                             metavar="COMMAND",
                             help="the application and its arguments\n"
-                            "e.g.: sca <command>",
+                            "e.g.: sca <command>\n\n",
                             nargs=1)
         parser.add_argument(dest="cmd_args",
                             default=None,
