@@ -52,7 +52,7 @@ buildTests(){
 buildRun(){
 	createVirtEnv
 	python ./setup.py install
-	cpi -h
+	sca -h
 	destroyVirtEnv
 	clean
 	return $TRUE
@@ -62,7 +62,7 @@ buildInstall(){
 	clean
 	python ./setup.py sdist
 	python ./setup.py check -m
-        sudo pip install --upgrade ./dist/*.tar.gz
+    sudo pip install --upgrade ./dist/*.tar.gz
 	return $TRUE
 }
 
@@ -85,19 +85,9 @@ buildRelease(){
 	return $TRUE
 }
 
-buildRPM(){
-    if ! type "rpmbuild" > /dev/null 2>&1; then
-        echo "Please, install rpm-build and try again"
-        exit 0
-    fi
-	clean
-	python ./setup.py bdist_rpm
-	return $TRUE
-}
-
 #read the inputs
 if [ $# -ne 1 ]; then
-    echo "usage: dev [ build | tests | release | run | clean | rpm | -h or --help ]"
+    echo "usage: dev [ build | tests | release | run | clean | -h or --help ]"
     exit 1
 fi
 
@@ -119,8 +109,6 @@ elif [[ "$1" == "clean" ]]; then
     buildCleanAll
 elif [[ "$1" == "release" ]]; then
     buildRelease
-elif [[ "$1" == "rpm" ]]; then
-    buildRPM
 elif [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
     echo "usage: dev [clean | tests | release]"
 	echo "	* clean: excute a new clean build which do not install or allow execute. Useful for integrity verification."

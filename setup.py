@@ -26,7 +26,7 @@ limitations under the License.
 from setuptools import setup, find_packages
 from pip.req import parse_requirements
 
-with open('README.rst') as f:
+with open('README.md') as f:
     README = f.read()
 
 REQUIREMENTS_LIST = parse_requirements('./requirements.txt', session=False)
