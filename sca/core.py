@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
     Contributors:
-        * Rafael Sene <rpsene@br.ibm.com>
+        * Rafael Peria de Sene <rpsene@br.ibm.com>
         * Roberto Oliveira <rdutra@br.ibm.com>
         * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
 """
@@ -95,7 +95,8 @@ class Problem(object):
 def execute(command):
     """execute a command with its parameters"""
     try:
-        return subprocess.check_call([command], stderr=subprocess.STDOUT, shell=True)
+        return subprocess.check_call([command], stderr=subprocess.STDOUT,
+                                     shell=True)
     except subprocess.CalledProcessError as excp:
         return excp.returncode
 
@@ -111,20 +112,16 @@ def print_output(msg_type, flag, msg):
     """ SCA print function, enables color usage """
     color_open = ''
     color_close = ''
-
     if flag:
         if msg_type == 'ERROR':
             color_open = "{hired}"
             color_close = "{/hired}"
-
         if msg_type == 'INFO':
             color_open = "{higreen}"
             color_close = "{/higreen}"
-
         if msg_type == 'WARNING':
             color_open = "{hiyellow}"
             color_close = "{/hiyellow}"
-
     print Color(color_open + msg + color_close)
 
 
@@ -134,8 +131,8 @@ def print_sca(problems_dict, color_flag):
         problem = problems_dict.get(key)
         msg_problem = "\n[Problem: {}]".format(problem.get_name_problem())
         print_output('ERROR', color_flag, msg_problem)
-
-        msg_descript = "[Description: {}]".format(problem.get_problem_description())
+        problem_description = problem.get_problem_description()
+        msg_descript = "[Description: {}]".format(problem_description)
         print_output('ERROR', color_flag, msg_descript)
 
         print_output('INFO', color_flag, "[Solution:")
@@ -187,7 +184,9 @@ def save_sca_txt(problems_dict, file_name):
 
                 output_file.write("[%s%s | %s] \n" % (reference, function,
                                                       ip_address))
-            output_file.write("\n-------------------------------------------------------")
+            output_file.write("\n")
+            for symbol in range(0, 56):
+                output_file.write("-"),
             output_file.write("\n")
 
 
@@ -207,7 +206,6 @@ def save_sca(problems_dict, file_name, file_type):
     elif file_type == 'json':
         save_sca_json(problems_dict, file_name)
         ret_val = True
-
     return ret_val
 
 
@@ -219,18 +217,17 @@ def set_group_events(operations, events):
         for event in events:
             if event.get_name() == oper.get_name().upper():
                 prb_name = event.get_name()
-
                 file_name = oper.get_site().get('file') or ''
                 file_path = oper.get_site().get('dir') + "/" + file_name
                 function = oper.get_site().get('function')
                 line = oper.get_site().get('line')
                 address = oper.get_site().get('address')
                 file_info = FileInfo(file_path, function, line, address)
-
                 if problems_dict.get(prb_name, None) is not None:
                     problems_dict.get(prb_name).get_file_info_list().append(file_info)
                 else:
-                    problem = Problem(prb_name, event.get_problem(), event.get_solution())
+                    problem = Problem(prb_name, event.get_problem(),
+                                      event.get_solution())
                     problem.add_file_info(file_info)
                     problems_dict[prb_name] = problem
 
@@ -242,9 +239,7 @@ def run_xml_match(journal_file):
     journal_xml = JournalXml()
     journal_xml.load_xml(journal_file)
     operations = journal_xml.get_operation_list()
-
     sca_xml = ScaXml()
     events = sca_xml.get_event_list()
-
     group_problems = set_group_events(operations, events)
     return group_problems

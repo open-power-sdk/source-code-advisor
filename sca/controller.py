@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
     Contributors:
-        * Rafael Sene <rpsene@br.ibm.com>
+        * Rafael Peria de Sene <rpsene@br.ibm.com>
         * Diego Fernandez-Merjildo <merijldo@br.ibm.com>
         * Roberto Oliveira <rdutra@br.ibm.com>
 """
@@ -27,18 +27,20 @@ import core
 
 FDPRPRO = '/opt/ibm/fdprpro/bin/fdprpro'
 FDPR_WRAP = '/opt/ibm/fdprpro/bin/fdpr_instr_prof_jour'
-SDK_DOWNLOAD_PAGE = 'https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdkdownload.html'
+SDK_DOWNLOAD_PAGE = 'https://developer.ibm.com/linuxonpower/sdk/'
 
 
 def run_sca(binary_path, binary_args, sca_options):
     '''Run the SCA tool'''
     if not core.cmdexists(FDPRPRO):
-        sys.stderr.write("fdpr-pro package is not installed in the system.\nTo install it, " +
-                         "download and manually install package from: " + SDK_DOWNLOAD_PAGE + '\n')
+        sys.stderr.write("fdpr-pro is not installed in the system.\n" +
+                         "To install it download and install the required\n" +
+                         "package from: " + SDK_DOWNLOAD_PAGE + '\n')
         sys.exit(2)
     elif not core.cmdexists(FDPR_WRAP):
-        sys.stderr.write("fdpr_wrap package is not installed in the system.\nTo install it, " +
-                         "download and manually install package from: " + SDK_DOWNLOAD_PAGE + '\n')
+        sys.stderr.write("fdpr_wrap is not installed in the system.\n" +
+                         "To install it download and install the required\n" +
+                         "package from: " + SDK_DOWNLOAD_PAGE + '\n')
         sys.exit(2)
     else:
         # Export fdpr flags in system environment
@@ -46,8 +48,8 @@ def run_sca(binary_path, binary_args, sca_options):
 
         # Get binary absolute path
         binary_path = os.path.realpath(binary_path)
-
-        status = core.execute(FDPR_WRAP + " " + binary_path + " " + binary_args)
+        status_cmd = FDPR_WRAP + " " + binary_path + " " + binary_args
+        status = core.execute(status_cmd)
         check_exit_status(status)
 
         jour_file = binary_path + "-jour.xml"
@@ -57,13 +59,14 @@ def run_sca(binary_path, binary_args, sca_options):
             sys.stdout.write("\nSCA report: No reports found.")
             sys.exit(0)
 
-        if sca_options.get_file_type_opt() != None:
+        if sca_options.get_file_type_opt() is not None:
             ok_val = core.save_sca(group_problems, sca_options.get_file_name(),
                                    sca_options.get_file_type_opt())
             if not ok_val:
                 print "\nSCA report: An error happened when saving the file.\n"
             else:
-                print "\nSCA report was saved in file: " + sca_options.get_file_name() + '\n'
+                print "\nSCA report was saved in file: ",
+                print sca_options.get_file_name() + '\n'
         else:
             core.print_sca(group_problems, sca_options.get_color_opt())
 

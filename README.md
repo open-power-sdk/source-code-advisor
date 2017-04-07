@@ -50,7 +50,7 @@ We use [Slack](https://toolsforpower.slack.org/) for communication.
 
 ## Supported Architecture and Operating Systems
 
-ppc64le: Ubuntu 16.04, CentOS7, RHEL 7.3, Fedora 25.
+ppc64le: Ubuntu 16.04, CentOS7, RHEL 7.3, SLES12, Fedora 25.
 
 ## Installing
 

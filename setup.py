@@ -17,7 +17,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
     Contributors:
-        * Rafael Sene <rpsene@br.ibm.com>
+        * Rafael Peria de Sene <rpsene@br.ibm.com>
         * Daniel Kreling <dbkreling@br.ibm.com>
         * Roberto Oliveira <rdutra@br.ibm.com>
         * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
@@ -42,7 +42,7 @@ setup(
 Daniel Battaiola Kreling, Diego Fernandez Merjildo',
     author_email='rpsene@br.ibm.com, rdutra@br.ibm.com, \
 dbkreling@br.ibm.com, merjildo@br.ibm.com',
-    url='https://www-304.ibm.com/webapp/set2/sas/f/lopdiags/sdklop.html',
+    url='https://developer.ibm.com/linuxonpower/sdk/',
     license='Apache Software License 2.0',
     install_requires=REQUIREMENTS,
     packages=find_packages(exclude=("tests",)),

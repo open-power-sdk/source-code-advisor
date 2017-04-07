@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
     Contributors:
-        * Rafael Sene <rpsene@br.ibm.com>
+        * Rafael Peria de Sene <rpsene@br.ibm.com>
         * Diego Fernandez-Merjildo <merjildo@br.ibm.com>
         * Roberto Oliveira <rdutra@br.ibm.com>
         """
@@ -98,7 +98,6 @@ def main(argv=None):
     else:
         sys.argv.extend(argv)
 
-    program_name = os.path.basename(sys.argv[0])
     program_version = "v%s" % __version__
     program_version_message = '%%(prog)s %s' % (program_version)
     program_shortdesc = '''
@@ -154,7 +153,6 @@ def main(argv=None):
         args = parser.parse_args()
         binary_path = args.cmd[0]
         binary_args = ' '.join(("'" + i + "'") for i in args.cmd_args)
-
         sca_options = ScaOptions(args.fdprpro_args)
         sca_options.set_color_opt(args.color)
 
@@ -166,7 +164,8 @@ def main(argv=None):
             if args.file_name is not None:
                 sca_options.set_file_name(args.file_name)
             else:
-                sca_options.set_file_name('sca_report_' + get_timestamp() + '.' + args.file_type)
+                fname = 'sca_report_' + get_timestamp() + '.' + args.file_type
+                sca_options.set_file_name(fname)
         elif args.file_name is not None:
             if not args.file_name:
                 print "Please set a file name"
@@ -174,10 +173,8 @@ def main(argv=None):
             sca_options.set_file_type_opt('txt')
             sca_options.set_file_name(args.file_name + '.' +
                                       sca_options.get_file_type_opt())
-
         # Run SCA
         controller.run_sca(binary_path, binary_args, sca_options)
-
     except KeyboardInterrupt:
         return 1
 

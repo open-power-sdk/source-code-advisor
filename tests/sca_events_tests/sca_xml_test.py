@@ -34,7 +34,7 @@ class ScaXmlTest(unittest.TestCase):
         # Test with an existing event
         event = next((event for event in events
                       if event.name == "MOVE HOT CODE TO COLD AREA"), None)
-        assert not None == event
+        assert event is not None
 
         expected_problem = "Invariant or infrequently executed code "\
             "found within a loop."
@@ -45,7 +45,7 @@ class ScaXmlTest(unittest.TestCase):
 
         # Test with a non existing event
         event = next((event for event in events if event.name == "BLA"), None)
-        assert None == event
+        assert event is not None
 
 
 if __name__ == '__main__':

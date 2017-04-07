@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
     Contributors:
-        * Rafael Sene <rpsene@br.ibm.com>
+        * Rafael Peria de Sene <rpsene@br.ibm.com>
         * Roberto Oliveira <rdutra@br.ibm.com>
 """
 
@@ -33,8 +33,8 @@ class CoreTests(unittest.TestCase):
         self.assertNotEqual(0, core.execute("foo_bar"))
 
     def test_cmdexist(self):
-        assert True == core.cmdexists("cd")
-        assert False == core.cmdexists("foo_bar")
+        assert core.cmdexists("cd") is True
+        assert core.cmdexists("foo_bar") is False
 
     def test_run_xml_match(self):
         """ Test the run_xml_match function and also the set_group_events() """
