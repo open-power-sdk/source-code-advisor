@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/open-power-sdk/source-code-advisor.svg?branch=master)](https://travis-ci.org/open-power-sdk/source-code-advisor)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/83083b5dcfe647bb8ccc05a48decafb6)](https://www.codacy.com/app/rpsene/source-code-advisor?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=open-power-sdk/source-code-advisor&amp;utm_campaign=Badge_Grade)
 
 # Project Description
