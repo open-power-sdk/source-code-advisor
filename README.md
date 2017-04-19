@@ -49,7 +49,7 @@ We welcome contributions to the Source Code Advisor Project in many forms. There
 The project's [maintainers](MAINTAINERS.txt): are responsible for reviewing and merging all pull requests and they guide the over-all technical direction of the project.
 
 ## Communication <a name="communication"></a>
-We use [Slack](https://toolsforpower.slack.org/) for communication.
+We use [Slack](https://toolsforpower.slack.com/) for communication.
 
 ## Supported Architecture and Operating Systems
 
