@@ -45,7 +45,7 @@ class ScaXmlTest(unittest.TestCase):
 
         # Test with a non existing event
         event = next((event for event in events if event.name == "BLA"), None)
-        assert event is not None
+        assert event is None
 
 
 if __name__ == '__main__':
