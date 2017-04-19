@@ -59,17 +59,21 @@ def run_sca(binary_path, binary_args, sca_options):
             sys.stdout.write("\nSCA report: No reports found.")
             sys.exit(0)
 
-        if sca_options.get_file_type_opt() is not None:
-            ok_val = core.save_sca(group_problems, sca_options.get_file_name(),
-                                   sca_options.get_file_type_opt())
-            if not ok_val:
-                print "\nSCA report: An error happened when saving the file.\n"
-            else:
-                print "\nSCA report was saved in file: ",
-                print sca_options.get_file_name() + '\n'
-        else:
-            core.print_sca(group_problems, sca_options.get_color_opt())
+	if sca_options.get_file_type_opt() is None:
+		sca_options.set_file_type_opt('txt')
 
+	output_type = sca_options.get_file_type_opt()
+
+	if output_type == 'txt':
+		if sca_options.get_color_opt():
+			output_type = 'color'
+
+	if sca_options.get_file_name() is not None:
+		outfile = sca_options.get_file_name()
+	else:
+		outfile = sys.stdout;
+
+	core.output_sca(group_problems, outfile, output_type)
 
 def check_exit_status(status):
     """

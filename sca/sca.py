@@ -23,7 +23,6 @@ limitations under the License.
 
 import sys
 import os
-import time
 import argparse
 
 from argparse import ArgumentParser
@@ -84,11 +83,6 @@ class ScaOptions(object):
     def set_color_opt(self, color_opt):
         ''' Set color option'''
         self.color_opt = color_opt
-
-
-def get_timestamp():
-    ''' Return the current timestamp '''
-    return time.strftime("%Y%m%d%H%M%S")
 
 
 def main(argv=None):
@@ -163,16 +157,12 @@ def main(argv=None):
             sca_options.set_file_type_opt(args.file_type)
             if args.file_name is not None:
                 sca_options.set_file_name(args.file_name)
-            else:
-                fname = 'sca_report_' + get_timestamp() + '.' + args.file_type
-                sca_options.set_file_name(fname)
         elif args.file_name is not None:
             if not args.file_name:
                 print "Please set a file name"
                 return
             sca_options.set_file_type_opt('txt')
-            sca_options.set_file_name(args.file_name + '.' +
-                                      sca_options.get_file_type_opt())
+
         # Run SCA
         controller.run_sca(binary_path, binary_args, sca_options)
     except KeyboardInterrupt:

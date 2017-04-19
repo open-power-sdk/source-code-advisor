@@ -108,7 +108,7 @@ def cmdexists(command):
     return subp == 0
 
 
-def print_output(msg_type, flag, msg):
+def print_output(outfile, msg_type, flag, msg):
     """ SCA print function, enables color usage """
     color_open = ''
     color_close = ''
@@ -122,21 +122,21 @@ def print_output(msg_type, flag, msg):
         if msg_type == 'WARNING':
             color_open = "{hiyellow}"
             color_close = "{/hiyellow}"
-    print Color(color_open + msg + color_close)
+    outfile.write(Color(color_open + msg + color_close))
 
 
-def print_sca(problems_dict, color_flag):
-    ''' This function shows events info '''
+def output_sca_txt(problems_dict, output_file, color_flag):
+    ''' This function emits events in txt format '''
     for key in problems_dict:
         problem = problems_dict.get(key)
-        msg_problem = "\n[Problem: {}]".format(problem.get_name_problem())
-        print_output('ERROR', color_flag, msg_problem)
+        msg_problem = "\n[Problem: {}]\n".format(problem.get_name_problem())
+        print_output(output_file, 'ERROR', color_flag, msg_problem)
         problem_description = problem.get_problem_description()
-        msg_descript = "[Description: {}]".format(problem_description)
-        print_output('ERROR', color_flag, msg_descript)
+        msg_descript = "[Description: {}]\n".format(problem_description)
+        print_output(output_file, 'ERROR', color_flag, msg_descript)
 
-        print_output('INFO', color_flag, "[Solution:")
-        print_output('INFO', color_flag, problem.get_solution())
+        print_output(output_file, 'INFO', color_flag, "[Solution:")
+        print_output(output_file, 'INFO', color_flag, problem.get_solution() + '\n')
 
         for file_inf in problems_dict[key].get_file_info_list():
             file_name = file_inf.get_file_name()
@@ -151,60 +151,27 @@ def print_sca(problems_dict, color_flag):
             function = "Function: %s" % (function_name)
             ip_add = "Instruction Pointer: %s" % (address)
 
-            msg_ref = "[%s%s | %s] " % (reference, function, ip_add)
-            print_output('WARNING', color_flag, msg_ref)
-        print "-------------------------------------------------------"
+            msg_ref = "[%s%s | %s]\n" % (reference, function, ip_add)
+            print_output(output_file, 'WARNING', color_flag, msg_ref)
 
 
-def save_sca_txt(problems_dict, file_name):
-    ''' This function saves events info in a txt file'''
-    with open(file_name, 'w') as output_file:
-        for key in problems_dict:
-            problem = problems_dict.get(key)
-            output_file.write("[Problem: {}]\n".format(
-                problem.get_name_problem()))
-            output_file.write("[Description: {}]\n".format(
-                problem.get_problem_description()))
-
-            output_file.write("[Solution:\n")
-            output_file.write(problem.get_solution() + "\n]")
-            output_file.write("\n")
-            for file_inf in problems_dict[key].get_file_info_list():
-                file_name = file_inf.get_file_name()
-                line = file_inf.get_line()
-                function_name = file_inf.get_function()
-                address = file_inf.get_address()
-
-                # Dont show if dont have line number information
-                reference = ""
-                if line != "0":
-                    reference = "Reference: %s:%s | " % (file_name, line)
-                function = "Function: %s" % (function_name)
-                ip_address = "Instruction Pointer: %s" % (address)
-
-                output_file.write("[%s%s | %s] \n" % (reference, function,
-                                                      ip_address))
-            output_file.write("\n")
-            for symbol in range(0, 56):
-                output_file.write("-"),
-            output_file.write("\n")
-
-
-def save_sca_json(problems_dict, file_name):
+def output_sca_json(problems_dict, outfile):
     '''This function saves events info in a Json file'''
-    with open(file_name, 'w') as outfile:
-        for key in problems_dict:
-            outfile.write(problems_dict.get(key).to_json())
+    for key in problems_dict:
+        outfile.write(problems_dict.get(key).to_json())
 
 
-def save_sca(problems_dict, file_name, file_type):
+def output_sca(problems_dict, outfile, file_type):
     '''This function saves events in a file'''
     ret_val = False
     if file_type == 'txt':
-        save_sca_txt(problems_dict, file_name)
+        output_sca_txt(problems_dict, outfile, False)
+        ret_val = True
+    elif file_type == 'color':
+        output_sca_txt(problems_dict, outfile, True)
         ret_val = True
     elif file_type == 'json':
-        save_sca_json(problems_dict, file_name)
+        output_sca_json(problems_dict, outfile)
         ret_val = True
     return ret_val
 
