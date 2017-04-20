@@ -115,8 +115,6 @@ def main(argv=None):
                                 formatter_class=RawTextHelpFormatter)
         parser.add_argument('--version', '-V', action='version',
                             version=program_version_message)
-        parser.add_argument('--color', dest="color", action='store_true',
-                            help="displays results in color\n\n")
         parser.add_argument("--fdprpro-args", dest="fdprpro_args", type=str,
                             help="fdprpro options \n"
                             "e.g.: --fdprpro-args='-O3 -v 3'\n"
@@ -128,11 +126,14 @@ def main(argv=None):
                             "e.g.:--output-type=txt\n\n",
                             default=None, choices=['txt', 'json'],
                             nargs='?')
-        parser.add_argument("--output-name", dest="file_name", type=str,
+        group = parser.add_mutually_exclusive_group()
+        group.add_argument("--output-name", dest="file_name", type=str,
                             help="The name of the report file\n"
                             "e.g.: --output-name=file_name\n\n",
                             default=None,
                             nargs='?')
+        group.add_argument('--color', dest="color", action='store_true',
+                            help="displays results in color\n\n")
         parser.add_argument(dest="cmd",
                             metavar="COMMAND",
                             help="the application and its arguments\n"
@@ -154,6 +155,9 @@ def main(argv=None):
             if args.file_type not in ('txt', 'json'):
                 print "File type not supported"
                 return
+            if args.file_type == 'json' and args.color:
+                print "JSON output does not support --color"
+		return
             sca_options.set_file_type_opt(args.file_type)
             if args.file_name is not None:
                 sca_options.set_file_name(args.file_name)

@@ -56,24 +56,28 @@ def run_sca(binary_path, binary_args, sca_options):
         group_problems = core.run_xml_match(jour_file)
 
         if not group_problems:
-            sys.stdout.write("\nSCA report: No reports found.")
+            sys.stdout.write("\nSCA report: No reports found.\n")
             sys.exit(0)
 
-	if sca_options.get_file_type_opt() is None:
-		sca_options.set_file_type_opt('txt')
+        if sca_options.get_file_type_opt() is None:
+            sca_options.set_file_type_opt('txt')
 
-	output_type = sca_options.get_file_type_opt()
+        output_type = sca_options.get_file_type_opt()
 
-	if output_type == 'txt':
-		if sca_options.get_color_opt():
-			output_type = 'color'
+        if output_type == 'txt':
+            if sca_options.get_color_opt():
+                output_type = 'color'
 
-	if sca_options.get_file_name() is not None:
-		outfile = sca_options.get_file_name()
-	else:
-		outfile = sys.stdout;
+        if sca_options.get_file_name() is not None:
+            try:
+                outfile = open(sca_options.get_file_name(),'w')
+            except:
+                sys.stdout.write("Unable to open \"%s\" for writing.\n" % sca_options.get_file_name())
+                sys.exit(1)
+        else:
+            outfile = sys.stdout;
 
-	core.output_sca(group_problems, outfile, output_type)
+        core.output_sca(group_problems, outfile, output_type)
 
 def check_exit_status(status):
     """
