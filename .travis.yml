@@ -1,7 +1,5 @@
 language: bash
 dist: xenial
-group: power
-script: uname -m
 
 language: python
 python:
